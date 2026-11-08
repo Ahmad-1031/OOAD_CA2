@@ -1,12 +1,44 @@
 
-| Criteria | Kerry Kitchen Collective | Scenario B | Scenario C
+# Scenario Suitability Matrix
+
+## Team and scenarios
+
+| Member | Scenario | CA1 analysis | Scenario profile |
+|---|---|---|---|
+| Ahmad Shahzad | 30: Digital Archive Contribution Service (Kerry Community Digital Archive) | [CA1](https://github.com/Ahmad-1031/OOAD_CA1) | [Profile](..\individual\shahzad\Scenario_Profile.md) |
+| Andrii Badieiev | Kerry Kitchen Collective (small batch food production) | [CA1](../individual/[name]/[file-name].docx) | [Profile](../individual/[name]/scenario-profile.md) |
+| Ryan Lock | [Scenario C] | [CA1](../individual/[name]/[file-name].docx) | [Profile](../individual/[name]/scenario-profile.md) |
+
+## Scoring system
+
+Score each criterion from 1 to 5, using the anchors below. Agree these anchors as a group before anyone scores. Each score must cite evidence in the scenario's profile.
+
+| Criterion | 1 | 3 | 5 |
+|---|---|---|---|
+| Scope | Too small or too large to build in CA2 and CA3 | Fits the time and team size, with some trimming | Fits cleanly, with a defined core flow and out-of-scope list |
+| Behavioural richness | Few rules, no states | Several rules with conditions, some states | Many rules with conditions, states, alternatives and failure cases, all stated |
+| OO potential | Mostly data handling | Several entities with clear responsibilities | Clear entities, responsibilities and relationships, with open design questions identified |
+| Sliceability | No independent slices | Three slices, each with an input and outcome | Four or more independent vertical slices, each with a fallback |
+| Testability | Outcomes not observable | Most rules observable with fixtures | All rules observable, with test doubles stated |
+| Comparability | Counts cannot be made | Counts for most measures | All measures counted using the shared definitions |
+
+**Gate:** a scenario is eligible for selection only if it scores at least 3 on both Sliceability and Testability. A scenario that fails the gate cannot be selected, however high its total.
+
+**Ranking:** among eligible scenarios, rank by total score (out of 30). Record any tie in the decision record and resolve it by discussion.
+
+## Scores
+
+| Criteria | Kerry Kitchen Collective | Digital Archive Contribution Service | [Scenario C] |
 |---|:---:|:---:|:---:|
 | Scope | | | |
-| Behavioural Richness | | | |
-| OO Potential | | | |
+| Behavioural richness | | | |
+| OO potential | | | |
 | Sliceability | | | |
 | Testability | | | |
 | Comparability | | | |
+| **Total (out of 30)** | | | |
+| **Gate passed (Sliceability ≥ 3 and Testability ≥ 3)** | | | |
+| **Rank among eligible scenarios** | | | |
 
 ### Evaluation Notes
 
