@@ -11,6 +11,17 @@
 
 ## Scoring system
 
+### Criteria definitions
+
+| Criterion | What it measures | Evidence to look for | Question to ask |
+|---|---|---|---|
+| Scope | Whether the scenario is the right size for CA2 and CA3, with a clear core flow and boundary | In-scope and out-of-scope lists, a named core flow | Can we name the core flow, and is anything important excluded? |
+| Behavioural richness | How much business behaviour the scenario contains | Rules with stated conditions, states, alternative flows, failure cases | How many rules have stated conditions, and how many states and failure cases are named? |
+| OO potential | Whether the domain has entities with distinct responsibilities and relationships, not just data to store | Candidate classes with stated responsibilities and relationships | Can we name the classes, say what each one is responsible for, and say which others it works with? |
+| Sliceability | Whether the scenario can be divided into independent vertical slices, each with a fallback | Candidate slices, each with a trigger, rules and an observable outcome | Can we name three slices that don't need each other to be finished? |
+| Testability | Whether the rules can be checked through observable outcomes using fixtures and test doubles | Rules with expected outcomes, and the dependencies that would need faking | For each rule, what result would we observe, and what would we need to replace? |
+| Comparability | Whether the scenario can be measured on the same counts as the other scenarios | Counts made using the agreed definitions | Can we give the same counts as every other profile, using the same definitions? |
+
 Score each criterion from 1 to 5, using the anchors below. Agree these anchors as a group before anyone scores. Each score must cite evidence in the scenario's profile.
 
 | Criterion | 1 | 3 | 5 |
