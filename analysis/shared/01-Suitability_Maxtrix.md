@@ -7,7 +7,7 @@
 |---|---|---|---|
 | Ahmad Shahzad | 30: Digital Archive Contribution Service (Kerry Community Digital Archive) | [CA1](https://github.com/Ahmad-1031/OOAD_CA1) | [Profile](..\individual\shahzad\Scenario_Profile.md) |
 | Andrii Badieiev | Kerry Kitchen Collective (small batch food production) | [CA1](../individual/[name]/[file-name].docx) | [Profile](../individual/[name]/scenario-profile.md) |
-| Ryan Lock | CA1 Scenario 17 Furniture Manufacturing & Custom Order Service (Dingle Bay Furniture Workshop) | [CA1](https://github.com/rlock111/ca1-analysis/blob/main/report/report.md) | [Profile](../individual/[name]/scenario-profile.md) |
+| Ryan Lock | CA1 Scenario 17 Furniture Manufacturing & Custom Order Service (Dingle Bay Furniture Workshop) | [CA1](https://github.com/rlock111/ca1-analysis/blob/main/report/report.md) | [Profile](../individual/lock/Scenario_Profile.md) |
 
 ## Scoring system
 
@@ -39,7 +39,7 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 
 ## Scores
 
-| Criteria | Kerry Kitchen Collective | Digital Archive Contribution Service | [Scenario C] |
+| Criteria | Kerry Kitchen Collective | Digital Archive Contribution Service | Dingle Bay Furniture Workshop |
 |---|:---:|:---:|:---:|
 | Scope | | | |
 | Behavioural richness | | | |
@@ -67,11 +67,15 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 - **Limitations:**
 - **Key considerations for CA3:** 
 
-**Scenario C**
-- **Strengths:**
-- **Limitations:**
+**Dingle Bay Furniture Workshop**
+- **Strengths:** In scope and out of scope lists are taken from the scenario, business rules with stated conditions, a 15-class domain model, five Gherkin scenarios already written.
+- **Limitations:** 13 use cases and six actors are too many to be covered by three members. I recommend the designer's use cases (UC1-6) to be considered for CA2.
+-  What counts as enough approval for a design version is not confirmed by the scenario (A1).
 - **Key considerations for CA3:** 
-
+    - The designer's use cases (UC1-6) form one flow from enquiry to an approved design and deal with the main problem, so they are the suggested focus.
+    - Each slice needs its own fixtures, such as an item with an approved design version for record change.
+    - Replace the accounting system with a fake and use a fixed clock for dates.
+  
 ### Scenario Selection Rationale
 
 One of the key reasons for selecting Kerry Kitchen Collectve was its rich business behaviour. The scenario involves meanful business rules and interactions between objects, rather than simply a large number of classes. This makes it particularly suitable for System Sequence Diagrams (SSDs), Operation Contracts, CRC Cards, and the application of GRASP principles.
