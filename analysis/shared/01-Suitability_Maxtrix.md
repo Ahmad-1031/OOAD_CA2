@@ -39,7 +39,7 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 
 ## Scores
 
-| Criteria | Kerry Kitchen Collective | Digital Archive Contribution Service | Dingle Bay Furniture Workshop |
+| Criteria | Kerry Kitchen Collective | Kerry Community Digital Archive | Dingle Bay Furniture Workshop |
 |---|:---:|:---:|:---:|
 | Scope | | | |
 | Behavioural richness | | | |
@@ -62,10 +62,12 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
     - ensure each slice includes meaningful business logic and observable outcomes
     - use test fixtures or substitutes to avoid dependencies on other students` implementations
 
-**Scenario B**
-- **Strengths:**
-- **Limitations:**
+**Kerry Community Digital Archive**
+- **Strengths:** Clear system boundary with in-scope and out-of-scope lists. Business rules with states (paused, withdrawn, partially complete, awaiting action). Candidate classes with stated relationships
+- **Limitations:** Priority, capacity and stalled-request rules have no stated conditions. Readiness criteria is not listed for contributions. Exceptions and Operational changes may be events attributes or events rather than classes
 - **Key considerations for CA3:** 
+    - Agree the Contribution contract before CA3, since it is the main coupling point between slices
+    - 
 
 **Dingle Bay Furniture Workshop**
 - **Strengths:** In scope and out of scope lists are taken from the scenario, business rules with stated conditions, a 15-class domain model, five Gherkin scenarios already written.

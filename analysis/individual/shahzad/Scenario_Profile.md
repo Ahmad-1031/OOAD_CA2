@@ -44,3 +44,9 @@ Each slice can be tested against rules it applies. The rules have observable out
 
 ## Comparability
 The scenario has clear actors, use cases, candidate classes, allowing it be used to directly compare with other scenario profiles 
+
+
+The conceptual domain model shows how the main concepts carry the business rules, giving foundation for further object-orientated design.
+
+![Diagram](Digital_Archive_Contribution_Service___Domain_Model.png)
+
