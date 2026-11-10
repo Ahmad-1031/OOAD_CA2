@@ -67,7 +67,8 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 - **Limitations:** Priority, capacity and stalled-request rules have no stated conditions. Readiness criteria is not listed for contributions. Exceptions and Operational changes may be events attributes or events rather than classes
 - **Key considerations for CA3:** 
     - Agree the Contribution contract before CA3, since it is the main coupling point between slices
-    - 
+    - Use an in-memory store and fixed clock for the allocation and stalled-request slices
+    - Each slice should be buildable and testable on its own, using test fixtures and test doubles in place of other slices' implementations.
 
 **Dingle Bay Furniture Workshop**
 - **Strengths:** In scope and out of scope lists are taken from the scenario, business rules with stated conditions, a 15-class domain model, five Gherkin scenarios already written.
