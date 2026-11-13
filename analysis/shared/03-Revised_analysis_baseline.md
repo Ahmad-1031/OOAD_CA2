@@ -1,5 +1,5 @@
 >[!Note]
->**Purpose:** This document is the agreed analysis that the CA2 design and CA3 slices build on. It records the scope, stakeholders, requirements, business rules, use cases, Gherkin scenarios and domain model
+>**Purpose:** Select one user story and the use cases that relate to them. select stakeholders, requirements, business rules that relate to those use cases
 
 ## 1. Scope
 
