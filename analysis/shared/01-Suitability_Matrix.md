@@ -73,15 +73,15 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 
 ### Ryan Lock
 
-| Criterion | Kerry Community Digital Archive | Kerry Kitchen Collective | Reason |
-|---|:---:|:---:|---|
-| Scope | | | |
-| Behavioural richness | | | |
-| OO potential | | | |
-| Sliceability | | | |
-| Testability | | | |
-| Comparability | | | |
-| **Total (out of 30)** | | | |
+| Criterion | Kerry Community Digital Archive | Reason | Kerry Kitchen Collective | Reason |
+|:---:|:---:|:---|:---:|:---|
+| Scope | 3 | In scope list by role (contributors, staff, coordinators, administrator, reviewer) and an out ofscope list (specialist systems, financial accounting, public website). No core flow is mentioned, and five roles is a lot to cover | | |
+| Behavioural richness | 3 | There are four rules, request states named (paused, withdrawn, partially complete, awaiting action). The readiness criteria for allocation are not listed, so the main rule has no stated condition | | |
+| OO potential | 4 | Domain model has 13 classes with named associations and multiplicities. Some attributes point at other classes (responsible : Staff, appliedBy : Staff), which would be better as associations. | | |
+| Sliceability | 4 | Four slices (submit contribution, allocate request, process request, release stalled allocations), each with a trigger and an outcome. No fallbacks are stated | | |
+| Testability | 3 | Outcomes are observable (rejected allocation, updated request history). Fixtures and test doubles are mentioned but not named | | |
+| Comparability | 2 | The profile says the scenario has actors, use cases and candidate classes, but gives no counts for them. Some could be taken from the domain model (13 classes), the matrix asks for counts using shared definitions, none have been provided | | |
+| **Total (out of 30)** | 19 | | | |
 
 ## Final averages
 
