@@ -39,8 +39,30 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 
 ## Scores
 
-| Criteria | Kerry Kitchen Collective | Kerry Community Digital Archive | Dingle Bay Furniture Workshop |
-|---|:---:|:---:|:---:|
+| Scorer | Scenarios scored |
+|---|---|
+| Ahmad Shahzad | Kerry Kitchen Collective, Dingle Bay Furniture Workshop |
+| Andrii Badieiev | Kerry Community Digital Archive, Dingle Bay Furniture Workshop |
+| Ryan Lock | Kerry Community Digital Archive, Kerry Kitchen Collective |
+
+
+
+### Ahmad Shahzad
+
+| Criterion | Kerry Kitchen Collective | Reason | Dingle Bay Furniture Workshop | Reason |
+|:---:|:---:|:---|:---:|---|
+| Scope | 5 | Explicit in-scope list (recipe management, Ingredient management, Customer order management, Production planning, Production batch recording etc) and out-of-scope list (Kitchen equipment control, Kitchen equipment control, Full financial accounting) | 5 | Well defined in scope (Enquiry management, Quotation management, History management etc) and clear out of scope list (CAD, Payroll accounting and Machine-control systems) |
+| Behavioural richness | 3 | Good behavioural richness with 4 good identifiable business rules from scenario. However more business rules from the scenario are missed eg S3 L4, L5 and S5 L3 | 5 |Good behavioural richness with 6 identified business rules that are evidenced from the scenario and state confirmation check, and any unclear rules that need defining are stated |
+| OO potential | 3  | The model gives strong OO potential as a base for design. Production Batch is a clear hub that can own the release and allocation responsibilities, and the explicit multiplicities show where collaboration will happen. The design will need a Packaged Unit class and named open questions, such as whether Substitution and Reservation are classes, before responsibilities can be assigned with confidence   | 5 | Strong OO Potential with 15 classes each having clear responsibilities and relationships as well as Staff and Customer classes that show each entity's role and interaction with the other classes |
+| Sliceability | 3 | The use case diagram shows eight use cases, and at least three can be split into slices for the three members, such as Recipe Versions with Ingredient Information, and Quality Check. Most batch use cases depend on Production Batch, so each slice needs a fake for it to be tested on its own. The domain model should be revised to reduce that dependency before the slices can be called independent | 5 | Sufficient sciceability available with with 13 use cases and room for selecting which area of the system the team decides to build |
+| Testability | 3 |Most rules have results we can check. For example, a batch can’t be released until its quality checks are done, and affected orders can be traced from an ingredient batch. Each can be tested with fake data. The coupling on Production Batch makes the tests harder to set up, but it doesn’t stop them | 5 | Most rules can be checked with a clear result e.g. the testing that an old version stays unhanged when a new one is saved and an item with only partial approval can't be released. Each can also be tested with fake data.  | 
+| Comparability | 5 | The scenario analysis contains plenty of information to be comparable to other team members scenarios | 5 | Scenario analysis contains sufficient information to compare with other member's scenarios |
+| **Total (out of 30)** | 22 | | |
+
+### Andrii Badieiev
+
+| Criterion | Kerry Community Digital Archive | Dingle Bay Furniture Workshop | Reason |
+|---|:---:|:---:|---|
 | Scope | | | |
 | Behavioural richness | | | |
 | OO potential | | | |
@@ -48,10 +70,30 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 | Testability | | | |
 | Comparability | | | |
 | **Total (out of 30)** | | | |
-| **Gate passed (Sliceability ≥ 3 and Testability ≥ 3)** | | | |
-| **Rank among eligible scenarios** | | | |
 
-### Evaluation Notes
+### Ryan Lock
+
+| Criterion | Kerry Community Digital Archive | Kerry Kitchen Collective | Reason |
+|---|:---:|:---:|---|
+| Scope | | | |
+| Behavioural richness | | | |
+| OO potential | | | |
+| Sliceability | | | |
+| Testability | | | |
+| Comparability | | | |
+| **Total (out of 30)** | | | |
+
+## Final averages
+
+| Scenario | Final average |
+|---|:---:|
+| Kerry Kitchen Collective | |
+| Kerry Community Digital Archive | |
+| Dingle Bay Furniture Workshop | |
+
+
+
+## Evaluation Notes
 
 **Kerry Kitchen Collective**
 - **Strengths:** clear business scope, rich business behaviour, strong OO potential
