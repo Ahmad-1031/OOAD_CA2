@@ -75,19 +75,17 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 
 | Criterion | Kerry Community Digital Archive | Reason | Kerry Kitchen Collective | Reason |
 |:---:|:---:|:---|:---:|:---|
-| Scope | 3 | In scope list by role (contributors, staff, coordinators, administrator, reviewer) and an out ofscope list (specialist systems, financial accounting, public website). No core flow is mentioned, and five roles is a lot to cover | | |
-| Behavioural richness | 3 | There are four rules, request states named (paused, withdrawn, partially complete, awaiting action). The readiness criteria for allocation are not listed, so the main rule has no stated condition | | |
-| OO potential | 4 | Domain model has 13 classes with named associations and multiplicities. Some attributes point at other classes (responsible : Staff, appliedBy : Staff), which would be better as associations. | | |
-| Sliceability | 4 | Four slices (submit contribution, allocate request, process request, release stalled allocations), each with a trigger and an outcome. No fallbacks are stated | | |
-| Testability | 3 | Outcomes are observable (rejected allocation, updated request history). Fixtures and test doubles are mentioned but not named | | |
-| Comparability | 2 | The profile says the scenario has actors, use cases and candidate classes, but gives no counts for them. Some could be taken from the domain model (13 classes), the matrix asks for counts using shared definitions, none have been provided | | |
-| **Total (out of 30)** | 19 | | | |
-
-## Final averages
+| Scope | 3 | In scope list by role (contributors, staff, coordinators, administrator, reviewer) and an out ofscope list (specialist systems, financial accounting, public website). No core flow is mentioned, and five roles is a lot to cover | 3 | In scope list (recipe versions, ingredients, production planning, batches, quality checks, order allocation, traceability) and an out of scope list (equipment control, retail payments, financial accounting). No core flow is mentioned |
+| Behavioural richness | 3 | There are four rules, request states named (paused, withdrawn, partially complete, awaiting action). The readiness criteria for allocation are not listed, so the main rule has no stated condition | 3 | There are four rules, two with stated conditions (substitutions need review, quality checks affect release). Batches can be delayed, resized or split, but no states are listed in the profile |
+| OO potential | 4 | Domain model has 13 classes with named associations and multiplicities. Some attributes point at other classes (responsible : Staff, appliedBy : Staff), which would be better as associations. | 3 | Domain model has nine classes with multiplicities, and Production Batch links most of them. Associations are not named |
+| Sliceability | 4 | Four slices (submit contribution, allocate request, process request, release stalled allocations), each with a trigger and an outcome. No fallbacks are stated | 2 | Six functional areas are listed (recipe management, ingredients, planning, batch recording, quality control, traceability), but none is described as a slice with an input and an outcome |
+| Testability | 3 | Outcomes are observable (rejected allocation, updated request history). Fixtures and test doubles are mentioned but not named | 3 | Four behaviours with observable outcomes (recording a batch, recording a substitution, release blocked before quality checks, tracing affected orders). No test doubles are named |
+| Comparability | 2 | The profile says the scenario has actors, use cases and candidate classes, but gives no counts for them. Some could be taken from the domain model (13 classes), the matrix asks for counts using shared definitions, none have been provided | 2 | The profile says there is enough material to compare design decisions, but gives no counts. Some could be taken from the domain model (nine classes), the matrix asks for counts using shared definitions, none have been provided |
+| **Total (out of 30)** | 19 | | 16 | |## Final averages
 
 | Scenario | Final average |
 |---|:---:|
-| Kerry Kitchen Collective | |
+| Kerry Kitchen Collective | 19 |
 | Kerry Community Digital Archive | |
 | Dingle Bay Furniture Workshop | |
 
