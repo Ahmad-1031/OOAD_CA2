@@ -121,7 +121,6 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
   
 ### Scenario Selection Rationale
 
-One of the key reasons for selecting Kerry Kitchen Collectve was its rich business behaviour. The scenario involves meanful business rules and interactions between objects, rather than simply a large number of classes. This makes it particularly suitable for System Sequence Diagrams (SSDs), Operation Contracts, CRC Cards, and the application of GRASP principles.
 
 ### Group Decision
 - Selected scenario: 
