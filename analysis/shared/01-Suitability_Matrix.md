@@ -61,15 +61,15 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 
 ### Andrii Badieiev
 
-| Criterion | Kerry Community Digital Archive | Dingle Bay Furniture Workshop | Reason |
-|---|:---:|:---:|---|
-| Scope | | | |
-| Behavioural richness | | | |
-| OO potential | | | |
-| Sliceability | | | |
-| Testability | | | |
-| Comparability | | | |
-| **Total (out of 30)** | | | |
+| Criterion | Kerry Community Digital Archive | Reason | Dingle Bay Furniture Workshop | Reason |
+|---|---|---|---|---|
+| Scope | 3 | The scenario defines nine in-scope areas and excludes specialist systems, accounting and unrelated website functions. However, contribution handling, rights, allocations and reporting create a broad csope without one clearly selected workflow.| 4 | The CA1 report defines ten in-scope areas and cler exclusions, including CAD, accounting and machine control. Design version management provides a focused workflow, although the full system covers 13 use cases and needs narrowing for CA2. |
+| Behavioural richness | 4 | Eight business rules cover authority checks, eligibility, preservation, priorities, version history and information sharing. Requests and activities have different states, but important conditions for allocation and priority decisions remain unresolved.| 4 | Six business rules cover design approval, deposits, changes, curing and production constraints. The report also identifies alternative flows and failure cases, although partial approval and change acceptance policies remain unclear. |
+| OO potential | 4 | The domain analysis identifies candidate objects and relationships for contributions, requests, allocations, review and secisions. These provide meanninful responsibilities, but some relationships and class boundaries still need refinement. | 5 | The domain model contains 15 classes with named associations and multiplicities. DesignVersion, Change, Approval and OrderItem have distinct responsibilities, and unresolved design questions are explicitly identified. |
+| Sliceability | 3 | The use-case catalogue contains 12 use casee, including submitting contributions, managing priorities and releasing stalled allocations. At least three potential slices can be identified, but their dependencies and independent fallbacks are not fully specified. | 4 | The 13 use cases provide several possible slices, including creating design versions, recording approvals and recording changes. These have identifiable outcomes, although shared domain dependencies and test fallbacks need further definition. |
+| Testability | 3 | The user stories contain onservable acceptance criteria and Given-When-Then examples, including request submission, authority checks and allocation release. However, some criteria conflict with stated rules, and test doubles are not specified. | 4 | The report contains five Gherkin scenarios covering approval, production release, change rejection and curing. Expected outcomes are observable, but test doubles and some approval conditions still need clarification. |
+| Comparability | 3 | The CA1 materials identify 12 functional requirements, 12 use cases, 8 business rules and candidate domain classes. Most measures can be compared, but the profile does not consistently present all counts using the shared definitions. | 4 | The CA1 report explicitly identifies 13 use cases, 6 actors, 15 domain clases, 6 business rukes and 5 Gherkin scenarios. Most comparison measures are available, although not all are collected in one standardised profile. |
+| **Total (out of 30)** | 20 | | 25 | |
 
 ### Ryan Lock
 
