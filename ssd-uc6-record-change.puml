@@ -18,19 +18,27 @@ alt item has no approved design version
   deactivate System
 
 else item has an approved design version
-  System --> Designer : changeRecorded(newVersionNumber, itemPaused)
+  System --> Designer : changeRecorded(changeNumber, newVersionNumber, itemPaused)
   deactivate System
 
   alt customer agrees to the change
-    Designer -> System : recordCustomerAgreement(orderNumber, itemNumber)
+    Designer -> System : recordCustomerAgreement(changeNumber)
     activate System
-    System --> Designer : changeAgreed(latestApprovedVersion, price, expectedCompletionDate)
+    alt change unknown or already answered
+      System --> Designer : refused(INVALID_CHANGE)
+    else change awaiting a response
+      System --> Designer : changeAgreed(latestApprovedVersion, price, expectedCompletionDate, itemPaused)
+    end
     deactivate System
 
   else customer does not agree to the change
-    Designer -> System : recordCustomerRejection(orderNumber, itemNumber)
+    Designer -> System : recordCustomerRejection(changeNumber)
     activate System
-    System --> Designer : changeRejected(latestApprovedVersion, price, expectedCompletionDate)
+    alt change unknown or already answered
+      System --> Designer : refused(INVALID_CHANGE)
+    else change awaiting a response
+      System --> Designer : changeRejected(latestApprovedVersion, price, expectedCompletionDate, itemPaused)
+    end
     deactivate System
   end
 end
