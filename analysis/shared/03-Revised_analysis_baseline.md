@@ -51,7 +51,7 @@
 
 | ID | Use case | Primary actor | Summary | Core or optional | Gherkin file |
 |---|---|---|---|---|---|
-| UC6 | Record Change | Designer | Allows designer to change design version keeping the record of price, date, customer response, and having a link to both versions | Core | [Feature - Record Change](/record-change.feature) |
+| UC6 | Record Change | Designer | Allows designer to change design version keeping the record of price, date, customer response, and having a link to both versions | Core | [Feature - Record Change](/features/record-change.feature) |
 
 ## 6. Gherkin scenarios
 
