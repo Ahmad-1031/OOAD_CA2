@@ -86,8 +86,8 @@ Export: [Image](/UC06-Domain-Model.png)
 - [ ] Every business rule names the use case it applies to
 - [ ] Every domain model concept is a class, attribute, actor or open design question
 - [ ] One term is used for the work item throughout
-- [ ] Every element marked Open is linked to a backlog item
-- [ ] IDs are unique and match docs/traceability.md
+
 
 **Written by:** Ahmad
-**Agreed by:**
+<br>
+**Agreed by:** Andrii, Ryan

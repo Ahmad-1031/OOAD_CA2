@@ -57,7 +57,7 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 | Sliceability | 3 | The use case diagram shows eight use cases, and at least three can be split into slices for the three members, such as Recipe Versions with Ingredient Information, and Quality Check. Most batch use cases depend on Production Batch, so each slice needs a fake for it to be tested on its own. The domain model should be revised to reduce that dependency before the slices can be called independent | 5 | Sufficient sciceability available with with 13 use cases and room for selecting which area of the system the team decides to build |
 | Testability | 3 |Most rules have results we can check. For example, a batch can’t be released until its quality checks are done, and affected orders can be traced from an ingredient batch. Each can be tested with fake data. The coupling on Production Batch makes the tests harder to set up, but it doesn’t stop them | 5 | Most rules can be checked with a clear result e.g. the testing that an old version stays unhanged when a new one is saved and an item with only partial approval can't be released. Each can also be tested with fake data.  | 
 | Comparability | 5 | The scenario analysis contains plenty of information to be comparable to other team members scenarios | 5 | Scenario analysis contains sufficient information to compare with other member's scenarios |
-| **Total (out of 30)** | 22 | | |
+| **Total (out of 30)** | 22 | | 30 |
 
 ### Andrii Badieiev
 
@@ -86,8 +86,8 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 | Scenario | Final average |
 |---|:---:|
 | Kerry Kitchen Collective | 19 |
-| Kerry Community Digital Archive | |
-| Dingle Bay Furniture Workshop | |
+| Kerry Community Digital Archive | 19.5|
+| Dingle Bay Furniture Workshop | 27.5 |
 
 
 
@@ -119,11 +119,10 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
     - Each slice needs its own fixtures, such as an item with an approved design version for record change.
     - Replace the accounting system with a fake and use a fixed clock for dates.
   
-### Scenario Selection Rationale
+
 
 
 ### Group Decision
-- Selected scenario: 
-- Decision date:
-- Participants:
-- Decision process:
+- Selected scenario: Dingle Bay Furniture Workshop
+- Decision date: 15/11/26
+- Participants: Andrii, Ryan, Ahmad

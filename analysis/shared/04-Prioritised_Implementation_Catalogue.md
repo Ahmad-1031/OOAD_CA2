@@ -30,3 +30,9 @@ All three slices belong to UC6. Each has its own input, business rule, stored re
 - Scope boundary: UC4 and UC5 supply only the behaviour needed by UC6. Full inventory, production scheduling, payment and production-release workflows are not reparate implementation targets.
 - Unresolved rules: The evidence needed for customer approval, handling partial approval, and whether price/date changes must pause production require agreement.
 
+<br>
+
+**Written by:** Andrii
+<br>
+**Agreed by:** Ryan, Ahmad
+

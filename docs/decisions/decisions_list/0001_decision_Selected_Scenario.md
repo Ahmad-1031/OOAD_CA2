@@ -2,29 +2,29 @@
 
 | Field | Detail |
 |---|---|
-| **Status** | Proposed / Accepted / Superseded by NNNN |
-| **Date** | YYYY-MM-DD |
-| **Proposed by** | [name] |
-| **Agreed by** | [names of members who agreed] |
-| **Lecturer approval** | Not required / Pending / Approved on YYYY-MM-DD |
-| **Trello card** | [card link or number] |
+| **Status** | Completed |
+| **Date** | 14/11/26 |
+| **Proposed by** | Ahmad, Andrii, Ryan |
+| **Agreed by** | Ahmad, Andrii, Ryan|
+| **Lecturer approval** | Approved on 15/11/26 |
+| **Trello card** | [card link](https://trello.com/c/E4byFrfK) |
 | **GitHub issue or PR** | #[number] |
-| **Affects** | [requirement IDs, rules, use cases, slices, contracts or models] |
+| **Affects** | |
 
 ## Context
-What situation or question made this decision necessary?
+Team collectively reviewed each other scenarios for CA2 selection
 
 ## Decision
-One or two sentences stating what the group decided.
+Selected scenario: **Dingle Bay Furniture Workshop**
 
 ## Options considered
-1. **[Option A]:** [one line]. Rejected because [reason].
-2. **[Option B]:** [one line]. Chosen because [reason].
+1. **[Option A]:** Kerry Community Digital Archive
+2. **[Option B]:** Kerry Kitchen Collective
 
 ## Rationale
-Why this option best meets the criteria, requirements or rules. Use evidence where you can.
+Best ranked and met both Sliceability and Testability gates
 
 
 ## Sign-off
-- [name]: agree / disagree (give reason if disagree)
+- Ahmad, Andrii, Ryan - agree 
 
