@@ -140,3 +140,123 @@ If the specified Change does not exist or has already received a customer respon
 | OQ-05 | How is the StaffMember recording the customer response identified for accountability? | OC-03, OC-04 | Open |
 | OQ-06 | Should changes that do not affect price or completion date also pause work? | OC-02, BR3 | Open |
 | OQ-07 | What response should be returned when the specified Order or OrderItem cannot be found? | OC-01 | Open |
+
+---
+---
+### Proposed Decision for OQ1:
+
+**Proposed Decision:** Each Change will have a globally unique changeNumber. The changeNumber attribute will be added to the Change class in the  Domain Model.
+
+**Rationale:** A globally unique identifier allows each Change to be identified unambiguously without requiring additional Order or OrderItem identifiers. This maintains consistency with the existing SSD and Operation Contracts.
+
+**Affected Artefacts:** Domain Model, OC-02, OC-03, OC-04
+
+**Proposed by:** Andrii
+
+**Status:** Proposed - awaiting team agreement
+
+### OQ-02: Approval Scope
+
+**Proposed Decision:** Customer agreement recorded through UC6 will constitute full approval of the proposed DesignVersion, provided that the original DesignVersion was fully approved and the customer has agreed to the complete revised design.
+
+A new Approval instance will be created with its scope set to Full. The approvedParts attribute will be not applicable for full approval. The proposed DesignVersion will become the latest approved version of the OrderItem.
+
+Partial approval will remain supported by the wider system but will not be handled by this operation.
+
+**Rationale:** This approach simplifies the change approval process, preserves the design history and maintains consistency with the current SSD and Operation Contracts. It also avoids ambiguity about which design version is approved following customer agreement.
+
+**Affected Artefacts:** Revised Analysis Baseline, Domain Model, SSD-01, OC-02, OC-03 and Gherkin Scenarios.
+
+**Proposed by:** Andrii
+
+**Status:** Proposed - awaiting team agreement
+
+### OQ-03: Restore OrderItem Status
+
+**Proposed Decision:** The production status and pause state of an OrderItem will be represented separately.
+
+A Boolean attribute named isPaused will be added to the OrderItem class. When a change requiring a pause is recorded, isPaused will be set to true while the existing production status remains unchanged.
+
+After customer agreement or rejection, isPaused will be set to false, provided that no other blocking conditions remain.
+
+**Rationale:** Separating the production status from the pause state preserves the current production stage without requiring an additional previousStatus attribute or status restoration logic. This reduces complexity and maintains consistency with the itemPaused response defined in SSD-01.
+
+**Affected Artefacts:** Domain Model, OC-02, OC-03, OC-04 and subsequent CRC Cards.
+
+**Proposed by:** Andrii
+
+**Status:** Proposed - awaiting team agreement
+
+### OQ-04 Multiple Pending Changes
+
+**Proposed Decision:** Only one Change with Pending status will be permitted per OrderItem at any given time.
+
+If a pending Change already exists for the OrderItem, any attempt to record another change will be refused with the PENDING_CHANGE_EXISTS response. No domain objects, attributes or associations will be modified.
+
+A new Change may be recorded after the existing pending Change has been accepted or rejected. The new Change will be based on the latest approved DesignVersion.
+
+All previous changes and design versions will remain in the design history.
+
+**Rationale:** Restricting each OrderItem to one pending Change prevents conflicts between proposed design versions, price adjustments and expected completion dates. It also simplifies customer approval, pause management and responsibility allocation while preserving the complete design history.
+
+**Affected Artefacts:** Revised Analysis Baseline, Business Rules, SSD-01, OC-02, Gherkin Scenarios and subsequent CRC Cards.
+
+**Proposed by:** Andrii
+
+**Status:** Proposed - awaiting team agreement
+
+### OQ-05 StaffMember Accountability
+
+**Proposed Decision:** Separate associations will be maintained between Change and StaffMember to identify the employee who originally recorded the change and the employee who subsequently recorded the customer response.
+
+The existing association will represent recordedBy. A new optional association named responseRecordedBy will be introduced.
+
+While Change is Pending, responseRecordedBy will remain unset. When customer agreement or rejection is recorded, Change will be associated with the StaffMember responsible for recording that response, and the responseDate will be recorded.
+
+The original recordedBy association will remain unchanged
+
+**Rationale:** This approach ensures accountability for both change creation and customer response recording, in accordance with NFR4. It preserves the identity of each responsible StaffMember without introducing an unnecessary additional domain class.
+
+**Affected Artefacts:** Domain Model, OC-03, OC-04 and subsequent CRC Cards and Design Class Diagram.
+
+**Proposed by:** Andrii
+
+**Status:** Proposed - awaiting team agreement
+
+### OQ-06 Pause Conditions
+
+**Proposed Decision:** Recording any proposed design change through UC6 will pause work on the associated OrderItem, regardless of whether the change affect the price or expected completion date.
+
+The OrderItem will remain paused while the Change is awaiting a customer response.
+
+Following customer agreement or rejection, the pause associated with the Change will be lifted, provided that no other blocking conditions remain.
+
+Only affected OrderItem will be paused, rather than entire Order.
+
+**Rationale:** Changes to dimensions, finish or drawings may affect production even when the price and expected completion date remain unchanged. Pausing work until the customer responds reduces the risk of manufacturing against an unapproved design, wasting materials and performing unnecessary rework. This approach also simplifies pause management and maintains consistency with the current SSD and Operation Contracts.
+
+**Affected Artefacts:** Revised Analysis Baseline, BR3, SSD-01, OC-02, OC-03, OC-04, Gherkin Scenarios and subsequent CRC Cards.
+
+**Proposed by:** Andrii
+
+**Status:** Proposed - awaiting team agreement
+
+### OQ-07 Missing Order or OrderItem
+
+**Proposed Decision:** Separate refusal responses will be used when the specified Order or OrderItem cannot be found.
+
+If no Order exists with the specified orderNumber, the system will return ORDER_NOT_FOUND.
+
+If the Order exists but does not contain an OrderItem with the specified itemNumber, the system will return ORDER_ITEM_NOT_FOUND.
+
+These refusal responses will apply to both findOrderItem() and recordChange().
+
+No domain objects, attributes or associations will be modified when either refusal occurs.
+
+**Rationale:** Distinguishing between a missing Order and a missing OrderItem provides clearer feedback to the Designer and allows incorrect identifiers to be corrected. It also ensures that invalid requests do not modify the domain state. 
+
+**Affected Artefacts:** SSD-01, OC-01, OC-02, Gherkin Scenarios and subsequent CRC Cards.
+
+**Proposed by:** Andrii
+
+**Status:** Proposed - awaiting team agreement
