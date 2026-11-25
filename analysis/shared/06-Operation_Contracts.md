@@ -42,8 +42,8 @@ This document defines the operation contracts for UC6 Record Change based on SSD
 **Postconditions:**
 - A new Change instance was created.
 - A new DesignVersion instance was created.
-- A unique changeNumber was assigned to the Change.
-- A new versionNumber and creationDate were assigned to the DesignVersion.
+- A globally unique changeNumber was assigned to the Change.
+- A new versionNumber and createdDate were assigned to the DesignVersion.
 - The dimensions, finish and drawings of the new DesignVersion were recorded.
 - The description, priceChange, newCompletionDate and changeDate of the Change were recorded.
 - The Change status was set to Pending.
@@ -51,7 +51,8 @@ This document defines the operation contracts for UC6 Record Change based on SSD
 - The Change was associated with the newly created DesignVersion.
 - The new DesignVersion was associated with the OrderItem.
 - The Change was associated with the StaffMember who recorded it.
-- The OrderItem status was set to Paused.
+- The OrderItem isPaused attribute was set to true.
+- The existing production status of the OrderItem remained unchanged.
 - The previous approved DesignVersion remained unchanged.
 - The original DesignVersion remained the latest approved version of the OrderItem.
 - The current price and expected completion date of the OrderItem remained unchanged.
@@ -59,10 +60,15 @@ This document defines the operation contracts for UC6 Record Change based on SSD
 
 **Refusal outcome:**
 
-If the OrderItem has no approved DesignVersion:
+If the OrderItem has no fully approved DesignVersion:
 - NO_APPROVED_VERSION was returned.
 - No objects were created or deleted.
 - No attributes or associations were modified.
+
+If a pending Change already exists for the OrderItem:
+- PENDING_CHANGE_EXISTS was returned
+- No objects were created or deleted
+- No attributes or associations were modified
 
 ### OC-03: Record Customer Agreement
 
@@ -72,12 +78,14 @@ If the OrderItem has no approved DesignVersion:
 
 **Preconditions:**
 - A StaffMember acting as Designer is identified.
-- The customer has agreed to the proposed change outside the system.
+- The customer has agreed to the complete proposed design outside the system.
 
 **Postconditions:**
 - The Change status was set to Accepted.
 - The responseDate of the Change was recorded.
 - A new Approval instance was created.
+- The Approval scope was set to Full.
+- The approvedParts attribute was not applicable.
 - The approvalDate was recorded.
 - The Approval was associated with the proposed DesignVersion.
 - The Approval was associated with the Customer who agreed to the change.
@@ -85,7 +93,8 @@ If the OrderItem has no approved DesignVersion:
 - The proposed DesignVersion became the latest approved version of the OrderItem.
 - The OrderItem price was updated according to the recorded priceChange.
 - The OrderItem expectedCompletionDate was set to the recorded newCompletionDate.
-- The pause associated with the accepted Change was lifted.
+- The OrderItem isPaused attribute was set to false, provided that no other blocking conditions remained.
+- The existing production status of the OrderItem remained unchanged.
 - All previous DesignVersion instances and their approval records were preserved.
 - The latestApprovedVersion, price, expectedCompletionDate and itemPaused were returned.
 
@@ -96,9 +105,9 @@ If the specified Change does not exist or has already received a customer respon
 - No objects were created or deleted.
 - No attributes or associations were modified.
 
-**Design assumption:**
+**Design decision:**
 
-The creation of an Approval instance and the approval of the proposed DesignVersion are provisional decisions, subject to team agreement (OQ-02).
+Customer agreement recorded through UC6 constitutes full approval of the proposed DesignVersion under the agreed conditions defined in OQ-02.
 
 ### OC-04: Record Customer Rejection
 
@@ -117,7 +126,8 @@ The creation of an Approval instance and the approval of the proposed DesignVers
 - The proposed DesignVersion was retained in the design history without approval.
 - The OrderItem price remained unchanged.
 - The OrderItem expectedCompletionDate remained unchanged.
-- The pause associated with the rejected Change was lifted.
+- The OrderItem isPaused attribute was set to false, provided that no other blocking conditions remained.
+- The existing production status of the OrderItem remained unchanged.
 - All existing associations between the Change and both DesignVersion instances were preserved.
 - No new Approval instance was created.
 - No domain objects were created or deleted.
@@ -131,15 +141,15 @@ If the specified Change does not exist or has already received a customer respon
 - No attributes or associations were modified.
 
 ### Open Design Questions
-| ID | Question | Related contracts | Status |
-|---|---|---|---|
-| OQ-01 | Should changeNumber be globally unique and added to the Domain Model? | OC-02, OC-03, OC-04 | Open |
-| OQ-02 | How is the identity of the StaffMember who recorded the customer response stored for accountability? | OC-03, OC-04 | Open |
-| OQ-03 | How is the previous OrderItem status restored after customer agreement or rejection? | OC-03, OC-04 | Open |
-| OQ-04 | Can multiple changes await a customer response for the same OrderItem? | OC-02, OC-03, OC-04 | Open |
-| OQ-05 | How is the StaffMember recording the customer response identified for accountability? | OC-03, OC-04 | Open |
-| OQ-06 | Should changes that do not affect price or completion date also pause work? | OC-02, BR3 | Open |
-| OQ-07 | What response should be returned when the specified Order or OrderItem cannot be found? | OC-01 | Open |
+| ID | Question | Related contracts | Agreed Decision | Affected Artefacts | Status |
+|---|---|---|---|---|---|
+| OQ-01 | Should changeNumber be globally unique and added to the Domain Model? | OC-02, OC-03, OC-04 | Introduce a globally unique changeNumber | Domain Model, Operation Contracts | Agreed |
+| OQ-02 | Does customer agreement constitute full or partial approval of the proposed DesignVersion? | OC-02, OC-03 | Full approval, provided the original version was fully approved and the customer agreed to the complete revised design. | Baseline, SSD, Operation Contracts, Gherkin | Agreed |
+| OQ-03 | How is the previous OrderItem status restored after customer agreement or rejection? | OC-02, OC-03, OC-04 | Introduce isPaused separately from production status. | Domain Model, Operation Contracts, Gherkin | Agreed |
+| OQ-04 | Can multiple changes await a customer response for the same OrderItem? | OC-02, OC-03, OC-04 | Allow only one pending Change per OrderItem. | Baseline, SSD, Operation Contracts, Gherkin | Agreed |
+| OQ-05 | How is the StaffMember recording the customer response identified for accountability? | OC-03, OC-04 | Pending team agreement. | Domain model, Operation Contracts | Proposed |
+| OQ-06 | Should changes that do not affect price or completion date also pause work? | OC-02, OC-03, OC-04 | Pending team agreement. | Baseline (BR3), Operation Contracts, Gherkin | Proposed |
+| OQ-07 | What response should be returned when the specified Order or OrderItem cannot be found? | OC-01, OC-02 |  Pending team agreement. | SSD, Operation Contracts, Gherkin | Proposed |
 
 ---
 ---
@@ -153,7 +163,7 @@ If the specified Change does not exist or has already received a customer respon
 
 **Proposed by:** Andrii
 
-**Status:** Proposed - awaiting team agreement
+**Status:** Agreed - awaiting implementation and consistency verification
 
 - Agreed: Ryan
 
@@ -171,7 +181,7 @@ Partial approval will remain supported by the wider system but will not be handl
 
 **Proposed by:** Andrii
 
-**Status:** Proposed - awaiting team agreement
+**Status:** Agreed - awaiting implementation and consistency verification
 
 - Agreed: Ryan
 
@@ -189,7 +199,7 @@ After customer agreement or rejection, isPaused will be set to false, provided t
 
 **Proposed by:** Andrii
 
-**Status:** Proposed - awaiting team agreement
+**Status:** Agreed - awaiting implementation and consistency verification
 
 - Agreed: Ryan
 
@@ -203,13 +213,15 @@ A new Change may be recorded after the existing pending Change has been accepted
 
 All previous changes and design versions will remain in the design history.
 
+**Known Consequence:** If customer request multiple changes at the same time, the Designer must combine them into a single Change or wait until the existing pending Change has been accepted or rejected.
+
 **Rationale:** Restricting each OrderItem to one pending Change prevents conflicts between proposed design versions, price adjustments and expected completion dates. It also simplifies customer approval, pause management and responsibility allocation while preserving the complete design history.
 
 **Affected Artefacts:** Revised Analysis Baseline, Business Rules, SSD-01, OC-02, Gherkin Scenarios and subsequent CRC Cards.
 
 **Proposed by:** Andrii
 
-**Status:** Proposed - awaiting team agreement
+**Status:** Agreed - awaiting implementation and consistency verification
 
 - Agreed: Ryan (with conditions, see feedback below)
 
