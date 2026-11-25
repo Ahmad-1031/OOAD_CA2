@@ -20,8 +20,7 @@ This document defines the operation contracts for UC6 Record Change based on SSD
 **Cross-references:** UC6, SSD-01, FR4
 
 **Preconditions:**
-- An Order with the specified orderNumber exists.
-- An OrderItem with the specified itemNumber is associated with that Order.
+- No domain-specific preconditions.
 
 **Postconditions:**
 - No domain objects were created or deleted.
@@ -29,14 +28,24 @@ This document defines the operation contracts for UC6 Record Change based on SSD
 - No associations were formed or removed.
 - The latest approved design version, item status, price and expected completion date were returned.
 
+**Refusal outcomes:**
+
+If no Order exists with the specified orderNumber:
+- ORDER_NOT_FOUND was returned.
+- No objects were created or deleted.
+- No attributes or associations were modified.
+
+if the Order exists but does not contain the specified OrderItem:
+- ORDER_ITEM_NOT_FOUND was returned.
+- No objects were created or deleted.
+- No attributes or associations were modified.
+
 ### OC-02: Record Change
 **Operation:** recordChange(orderNumber, itemNumber, description, dimensions, finish, drawings, priceChange, newCompletionDate)
 
 **Cross-references:** UC6, SSD-01, FR4, FR7, NFR4, BR3, BR6, GH3.
 
 **Preconditions:**
-- An Order with the specified orderNumber exists.
-- An OrderItem with the specified itemNumber is associated with that Order.
 - A StaffMember acting as Designer is identified.
 
 **Postconditions:**
@@ -50,8 +59,10 @@ This document defines the operation contracts for UC6 Record Change based on SSD
 - The Change was associated with the original approved DesignVersion.
 - The Change was associated with the newly created DesignVersion.
 - The new DesignVersion was associated with the OrderItem.
-- The Change was associated with the StaffMember who recorded it.
-- The OrderItem isPaused attribute was set to true.
+- The change was associated with the StaffMember who recorded it through the recordedBy association.
+- The responseRecordedBy association remained unset.
+- The OrderItem isPaused attribute was set to true if the change affected the price or expected completion date.
+- Otherwise, the existing pause state of the OrderItem remained unchanged.
 - The existing production status of the OrderItem remained unchanged.
 - The previous approved DesignVersion remained unchanged.
 - The original DesignVersion remained the latest approved version of the OrderItem.
@@ -59,6 +70,16 @@ This document defines the operation contracts for UC6 Record Change based on SSD
 - The changeNumber, newVersionNumber and itemPaused were returned.
 
 **Refusal outcome:**
+
+If no Order exists with the specified orderNumber:
+- ORDER_NOT_FOUND was returned.
+- No objects were created or deleted.
+- No attributes or associations were modified.
+
+if the Order exists but does not contain the specified OrderItem:
+- ORDER_ITEM_NOT_FOUND was returned.
+- No objects were created or deleted.
+- No attributes or associations were modified.
 
 If the OrderItem has no fully approved DesignVersion:
 - NO_APPROVED_VERSION was returned.
@@ -83,6 +104,8 @@ If a pending Change already exists for the OrderItem:
 **Postconditions:**
 - The Change status was set to Accepted.
 - The responseDate of the Change was recorded.
+- The Change was associated with the StaffMember who recorded the customer response through the responseRecordedBy association.
+- The original recordedBy association of the Change remained unchanged.
 - A new Approval instance was created.
 - The Approval scope was set to Full.
 - The approvedParts attribute was not applicable.
@@ -93,7 +116,8 @@ If a pending Change already exists for the OrderItem:
 - The proposed DesignVersion became the latest approved version of the OrderItem.
 - The OrderItem price was updated according to the recorded priceChange.
 - The OrderItem expectedCompletionDate was set to the recorded newCompletionDate.
-- The OrderItem isPaused attribute was set to false, provided that no other blocking conditions remained.
+- If the Change had caused the OrderItem to be paused, the isPaused attribute was set to false, provided that no other blocking conditions remained.
+- Otherwise, the existing pause state of the OrderItem remained unchanged.
 - The existing production status of the OrderItem remained unchanged.
 - All previous DesignVersion instances and their approval records were preserved.
 - The latestApprovedVersion, price, expectedCompletionDate and itemPaused were returned.
@@ -122,11 +146,14 @@ Customer agreement recorded through UC6 constitutes full approval of the propose
 **Postconditions:**
 - The Change status was set to Rejected.
 - The responseDate of the Change was recorded.
+- The Change was associated with the StaffMember who recorded the customer response through the responseRecordedBy association.
+- The original recordedBy association of the Change remained unchanged.
 - The previous approved DesignVersion remained the latest approved version of the OrderItem.
 - The proposed DesignVersion was retained in the design history without approval.
 - The OrderItem price remained unchanged.
 - The OrderItem expectedCompletionDate remained unchanged.
-- The OrderItem isPaused attribute was set to false, provided that no other blocking conditions remained.
+- If the Change had caused the OrderItem to be paused, the isPaused attribute was set to false, provided that no other blocking conditions remained.
+- Otherwise, the existing pause state of the OrderItem remained unchanged.
 - The existing production status of the OrderItem remained unchanged.
 - All existing associations between the Change and both DesignVersion instances were preserved.
 - No new Approval instance was created.
@@ -147,9 +174,9 @@ If the specified Change does not exist or has already received a customer respon
 | OQ-02 | Does customer agreement constitute full or partial approval of the proposed DesignVersion? | OC-02, OC-03 | Full approval, provided the original version was fully approved and the customer agreed to the complete revised design. | Baseline, SSD, Operation Contracts, Gherkin | Agreed |
 | OQ-03 | How is the previous OrderItem status restored after customer agreement or rejection? | OC-02, OC-03, OC-04 | Introduce isPaused separately from production status. | Domain Model, Operation Contracts, Gherkin | Agreed |
 | OQ-04 | Can multiple changes await a customer response for the same OrderItem? | OC-02, OC-03, OC-04 | Allow only one pending Change per OrderItem. | Baseline, SSD, Operation Contracts, Gherkin | Agreed |
-| OQ-05 | How is the StaffMember recording the customer response identified for accountability? | OC-03, OC-04 | Pending team agreement. | Domain model, Operation Contracts | Proposed |
-| OQ-06 | Should changes that do not affect price or completion date also pause work? | OC-02, OC-03, OC-04 | Pending team agreement. | Baseline (BR3), Operation Contracts, Gherkin | Proposed |
-| OQ-07 | What response should be returned when the specified Order or OrderItem cannot be found? | OC-01, OC-02 |  Pending team agreement. | SSD, Operation Contracts, Gherkin | Proposed |
+| OQ-05 | How is the StaffMember recording the customer response identified for accountability? | OC-02, OC-03, OC-04 | Introduce separate recordedBy and responseRecordedBy associations. | Domain model, Operation Contracts | Agreed |
+| OQ-06 | Should changes that do not affect price or completion date also pause work? | OC-02, OC-03, OC-04 | Only changes affecting price or expected completion date trigger a pause. | Baseline (BR3), Operation Contracts, Gherkin | Agreed |
+| OQ-07 | What response should be returned when the specified Order or OrderItem cannot be found? | OC-01, OC-02 | Return ORDER_NOT_FOUND or ORDER_ITEM_NOT_FOUND | SSD, Operation Contracts, Gherkin | Agreed |
 
 ---
 ---
@@ -251,7 +278,7 @@ The original recordedBy association will remain unchanged
 
 **Proposed by:** Andrii
 
-**Status:** Proposed - awaiting team agreement
+**Status:** Agreed - awaiting implementation and consistency verification
 
 - Agreed: Ryan, Ahmad
 
@@ -286,6 +313,12 @@ Only affected OrderItem will be paused, rather than entire Order.
 
 **Agreed**- Ahmad
 
+**Revised Decision:** Only changes affecting the price or expected completion date will cause the affected OrderItem to be paused.
+
+If neither is affected, the existing pause state of the OrderItem will remain unchanged.
+
+**Final Status:** Agreed - awaiting implementation and consistency verification
+
 ### OQ-07 Missing Order or OrderItem
 
 **Proposed Decision:** Separate refusal responses will be used when the specified Order or OrderItem cannot be found.
@@ -304,6 +337,6 @@ No domain objects, attributes or associations will be modified when either refus
 
 **Proposed by:** Andrii
 
-**Status:** Proposed - awaiting team agreement
+**Status:** Agreed - awaiting implementation and consistency verification
 
 - Agreed: Ryan, Ahmad
