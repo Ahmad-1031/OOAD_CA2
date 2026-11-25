@@ -165,7 +165,7 @@ If the specified Change does not exist or has already received a customer respon
 
 **Status:** Agreed - awaiting implementation and consistency verification
 
-- Agreed: Ryan
+- Agreed: Ryan, Ahmad
 
 ### OQ-02: Approval Scope
 
@@ -183,7 +183,7 @@ Partial approval will remain supported by the wider system but will not be handl
 
 **Status:** Agreed - awaiting implementation and consistency verification
 
-- Agreed: Ryan
+- Agreed: Ryan, Ahmad
 
 ### OQ-03: Restore OrderItem Status
 
@@ -201,7 +201,7 @@ After customer agreement or rejection, isPaused will be set to false, provided t
 
 **Status:** Agreed - awaiting implementation and consistency verification
 
-- Agreed: Ryan
+- Agreed: Ryan, Ahmad
 
 ### OQ-04 Multiple Pending Changes
 
@@ -253,7 +253,7 @@ The original recordedBy association will remain unchanged
 
 **Status:** Proposed - awaiting team agreement
 
-- Agreed: Ryan
+- Agreed: Ryan, Ahmad
 
 ### OQ-06 Pause Conditions
 
@@ -283,6 +283,8 @@ Only affected OrderItem will be paused, rather than entire Order.
 - Unlike OQ-04, which fills a gap in the baseline, this proposal replaces an existing rule. Changing an agreed rule needs a problem the current rules do not handle, and the risk given in the rationale is already handled by BR1 (see above).
 
 **Suggested outcome:** Keep BR3 and extension 4a. Only changes that affect the price or expected completion date pause work on the OrderItem.
+
+**Agreed**- Ahmad
 
 ### OQ-07 Missing Order or OrderItem
 
