@@ -24,6 +24,7 @@ Source: [ssd-uc6-record-change.puml](../../ssd-uc6-record-change.puml)
 - The first operation that changes anything is recordChange(...), after a findOrderItem(...) query.
 - The parameters crossing the boundary are listed on each event.
 - A change can only be recorded against an item with an approved design version. Otherwise it is refused with NO_APPROVED_VERSION and nothing is recorded.
+- A change can only be recorded against an item with no pending change. Otherwise it is refused with PENDING_CHANGE_EXISTS and nothing is recorded.
 - recordChange returns a changeNumber, and the customer's agreement or rejection is recorded against that number. An order item can have more than one change, so the order and item numbers alone do not identify which change the customer is answering.
 - A response to a change that is unknown or already answered is refused with INVALID_CHANGE and nothing is modified.
 - Each reply shows whether the item is paused, so the pause and its release can be checked.

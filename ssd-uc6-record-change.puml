@@ -17,7 +17,11 @@ alt item has no approved design version
   System --> Designer : refused(NO_APPROVED_VERSION)
   deactivate System
 
-else item has an approved design version
+else item already has a pending change
+  System --> Designer : refused(PENDING_CHANGE_EXISTS)
+  deactivate System
+
+else item has an approved design version and no pending change
   System --> Designer : changeRecorded(changeNumber, newVersionNumber, itemPaused)
   deactivate System
 

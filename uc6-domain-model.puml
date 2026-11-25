@@ -13,6 +13,7 @@ class OrderItem {
   itemNumber
   description
   status
+  isPaused
   price
   expectedCompletionDate
 }
@@ -32,6 +33,7 @@ class Approval {
 }
 
 class Change {
+  changeNumber
   changeDate
   description
   priceChange
