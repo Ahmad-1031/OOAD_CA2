@@ -155,6 +155,8 @@ If the specified Change does not exist or has already received a customer respon
 
 **Status:** Proposed - awaiting team agreement
 
+- Agreed: Ryan
+
 ### OQ-02: Approval Scope
 
 **Proposed Decision:** Customer agreement recorded through UC6 will constitute full approval of the proposed DesignVersion, provided that the original DesignVersion was fully approved and the customer has agreed to the complete revised design.
@@ -171,6 +173,8 @@ Partial approval will remain supported by the wider system but will not be handl
 
 **Status:** Proposed - awaiting team agreement
 
+- Agreed: Ryan
+
 ### OQ-03: Restore OrderItem Status
 
 **Proposed Decision:** The production status and pause state of an OrderItem will be represented separately.
@@ -186,6 +190,8 @@ After customer agreement or rejection, isPaused will be set to false, provided t
 **Proposed by:** Andrii
 
 **Status:** Proposed - awaiting team agreement
+
+- Agreed: Ryan
 
 ### OQ-04 Multiple Pending Changes
 
@@ -205,6 +211,18 @@ All previous changes and design versions will remain in the design history.
 
 **Status:** Proposed - awaiting team agreement
 
+- Agreed: Ryan (with conditions, see feedback below)
+
+**Feedback (Ryan):** Agree with the proposal, provided the linked artefacts are updated.
+
+- Only one pending Change per OrderItem is not stated in the scenario or the revised analysis baseline. It is a new business rule rather than a design decision, so it should be added to the business rules in the revised analysis baseline.
+- OC-02 only has the NO_APPROVED_VERSION refusal. A second refusal is needed for PENDING_CHANGE_EXISTS, where nothing is created or modified.
+- SSD-01 and the Gherkin scenarios do not yet show this refusal. A refused recordChange branch and a matching scenario will be added once the rule is agreed.
+- If the customer asks for two separate changes at the same time, the designer must combine them into one Change or wait for the first response. This should be recorded as a known consequence.
+- The scenario and baseline do not say whether more than one change can await a response, so this fills a gap rather than overriding an existing rule. Without it, two pending changes based on the same version could conflict, and no existing rule prevents that.
+
+**Suggested outcome:** Accept OQ-04. Add the rule to the baseline business rules upon team agreement, add the PENDING_CHANGE_EXISTS refusal to OC-02, then update SSD-01 and the Gherkin scenarios.
+
 ### OQ-05 StaffMember Accountability
 
 **Proposed Decision:** Separate associations will be maintained between Change and StaffMember to identify the employee who originally recorded the change and the employee who subsequently recorded the customer response.
@@ -223,6 +241,8 @@ The original recordedBy association will remain unchanged
 
 **Status:** Proposed - awaiting team agreement
 
+- Agreed: Ryan
+
 ### OQ-06 Pause Conditions
 
 **Proposed Decision:** Recording any proposed design change through UC6 will pause work on the associated OrderItem, regardless of whether the change affect the price or expected completion date.
@@ -240,6 +260,17 @@ Only affected OrderItem will be paused, rather than entire Order.
 **Proposed by:** Andrii
 
 **Status:** Proposed - awaiting team agreement
+
+- Disagreed: Ryan (see feedback below)
+
+**Feedback (Ryan):** Disagree with the proposal as currently written.
+
+- BR3 in the revised analysis baseline states that the customer must agree before work carries on if a change affects the price or date. UC6 extension 4a covers the case where it does not. OQ-06 would override an agreed business rule, so it is a baseline change rather than a design decision.
+- SSD-01 returns itemPaused so the designer can see whether work stopped. If every change pauses work, itemPaused is always true and no longer carries information.
+- The risk in the rationale (manufacturing against an unapproved design) is already covered. A change creates a new DesignVersion, which is not approved until the customer agrees, and an item cannot go into production until its design is approved (CA1 BR1).
+- Unlike OQ-04, which fills a gap in the baseline, this proposal replaces an existing rule. Changing an agreed rule needs a problem the current rules do not handle, and the risk given in the rationale is already handled by BR1 (see above).
+
+**Suggested outcome:** Keep BR3 and extension 4a. Only changes that affect the price or expected completion date pause work on the OrderItem.
 
 ### OQ-07 Missing Order or OrderItem
 
@@ -260,3 +291,5 @@ No domain objects, attributes or associations will be modified when either refus
 **Proposed by:** Andrii
 
 **Status:** Proposed - awaiting team agreement
+
+- Agreed: Ryan
