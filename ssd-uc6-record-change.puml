@@ -7,13 +7,27 @@ participant "Workshop Order System" as System
 
 Designer -> System : findOrderItem(orderNumber, itemNumber)
 activate System
-System --> Designer : itemDetails(latestApprovedVersion, status, price, expectedCompletionDate)
+alt order not found
+  System --> Designer : refused(ORDER_NOT_FOUND)
+else item not found in the order
+  System --> Designer : refused(ORDER_ITEM_NOT_FOUND)
+else order item found
+  System --> Designer : itemDetails(latestApprovedVersion, status, price, expectedCompletionDate)
+end
 deactivate System
 
 Designer -> System : recordChange(orderNumber, itemNumber, description, dimensions, finish, drawings, priceChange, newCompletionDate)
 activate System
 
-alt item has no approved design version
+alt order not found
+  System --> Designer : refused(ORDER_NOT_FOUND)
+  deactivate System
+
+else item not found in the order
+  System --> Designer : refused(ORDER_ITEM_NOT_FOUND)
+  deactivate System
+
+else item has no approved design version
   System --> Designer : refused(NO_APPROVED_VERSION)
   deactivate System
 
