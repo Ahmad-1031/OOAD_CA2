@@ -84,6 +84,11 @@ contracts before being assigned to individual classes.
 |Return changeNumber, newVersionNumber and itemPaused | Doing | RecordChangeCoordinator |
 |Return refusal outcome if no approved DesignVersion exists | Doing | RecordChangeCoordinator |
 
+**Feedback (Ryan):** Needs updating for the newer agreed OQs.
+
+- No responsibility is assigned for the ORDER_NOT_FOUND and ORDER_ITEM_NOT_FOUND refusals (OQ-07, OC-01 and OC-02) or the PENDING_CHANGE_EXISTS refusal (OQ-04, OC-02).
+- A class needs to be assigned for each so the methods can be added to the DCD.
+
 
 
 ### 2.3 OC-03 – recordCustomerAgreement
@@ -149,6 +154,11 @@ contracts before being assigned to individual classes.
 |Return 'Invalid_Change' message | Doing | TBD (Design Decision) |
 |Preserve all existing attributes and associations | Doing | Operation-wide constraint |
 
+**Feedback (Ryan):** responseRecordedBy (OQ-05) is not included.
+
+- In 2.3 Approval knows the StaffMember recording the agreement, but in 2.4 the StaffMember recording the rejection is TBD.
+- Both should be the same, using the responseRecordedBy association between Change and StaffMember.
+
 
 
 
@@ -186,6 +196,10 @@ responsibilities to the selected classes.
 | | Update expectedCompletionDate based on newCompletionDate | Change |
 | | Update price according to priceChange | Change |
 | | Return current OrderItem details | DesignVersion |
+
+**Feedback (Ryan):** "Pause work when a proposed Change is recorded" does not match OQ-06.
+
+- After OQ-06, work is only paused when the change affects the price or expected completion date.
 
 ### 3.3 DesignVersion
 
