@@ -56,5 +56,6 @@ StaffMember "1" -- "0..*" Approval : records >
 Change "0..*" -- "1" DesignVersion : is based on >
 Change "0..1" -- "1" DesignVersion : results in >
 StaffMember "1" -- "0..*" Change : records >
+StaffMember "0..1" -- "0..*" Change : records response to >
 
 @enduml
