@@ -8,3 +8,4 @@ Index of all decisions. Each decision has its own file in this folder. Add a row
 | 0002 | 16/11/26 | Reconciliation & Design changed | Accepted | [names] - Ahmad, Andrii, Ryan | [card](https://trello.com/c/LgJ8IErO) | [Reconciliation](./decisions_list/0002_decision_Reconciliation_Design.md) |
 | 0003 | 17/11/26 | Baseline Agreed | Accepted | [names] - Ahmad, Andrii, Ryan | [card](https://trello.com/c/wknXjqNC) | [Baseline](./decisions_list/0003_decision_Agreed_Baseline.md) |
 | 0004 | 17/11/26 | Prioritised Implementation Catalogue Agreed | Accepted | [names] - Ahmad, Andrii, Ryan | [card](https://trello.com/c/XSSvVCrW) | [Implementation Catalogue](./decisions_list/0004_decision_Prioritised_Implementation.md) |
+| 0005 | 26/11/26 | UC6 Design Decisions OQ-01 - OQ-07 | Accepted | [names] - Ahmad, Andrii, Ryan | [card](https://trello.com/c/DssS4qHk/3-operation-contracts) | [UC6 Design Decisions](./decisions_list/0005_decision_UC6_Operation_Contracts.md) |
