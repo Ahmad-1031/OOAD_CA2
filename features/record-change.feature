@@ -55,3 +55,23 @@ Feature: Record a change to an approved design
     When the designer records a change to order 1099 item 1
     Then the change is refused because the order cannot be found
     And no new design version is created
+
+  Scenario: GH10 - A change to an item not in the order is refused
+    Given order 1050 does not contain item 5
+    When the designer records a change to order 1050 item 5
+    Then the change is refused because the item cannot be found in the order
+    And no new design version is created
+
+  Scenario: GH11 - A change to an item with no approved design version is refused
+    Given order 1050 item 2 has no approved design version
+    When the designer records a change to order 1050 item 2
+    Then the change is refused because item 2 has no approved design version
+    And no new design version is created
+
+  Scenario: GH12 - A response to an already answered change is refused
+    Given order 1050 item 1 has approved design version 2
+    And a change has created design version 3
+    And the customer has rejected the change
+    When the designer records that the customer agreed to the change
+    Then the response is refused because the change has already been answered
+    And design version 2 is still the latest approved version
