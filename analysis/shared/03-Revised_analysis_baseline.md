@@ -34,9 +34,9 @@
 | ID | Requirement | Priority | Source | Use case | Status |
 |---|---|---|---|---|---|
 | FR4 | The system shall save each design version as a new numbered version without changing earlier versions.| Must | S3, AG2, P1 | UC6 | Open / Agreed |
-|FR5 | The system shall record each approval against one design version, stating whether it is full or partial, the date and who recorded it. | Must | S3, AG3, A1 | Open / Agreed |
-| FR7 | The system shall link each change to the design version it replaces and record how it affects the price and completion date.| Must | S4, AG4, P3 | UC06 | Open / Agreed |
-|NFR4 | Accountability - Every approval, change and quality decision records who made it and when | Must | S7, FR5, FR10 | Must | Open / Agreed| 
+|FR5 | The system shall record each approval against one design version, stating whether it is full or partial, the date and who recorded it. | Must | S3, AG3, A1 | UC6 | Open / Agreed |
+| FR7 | The system shall link each change to the design version it replaces and record how it affects the price and completion date.| Must | S4, AG4, P3 | UC6 | Open / Agreed |
+|NFR4 | Accountability - Every approval, change and quality decision records who made it and when | Must | S7, FR5, FR10 | UC6 | Open / Agreed| 
 
 
 
@@ -46,6 +46,7 @@
 |---|---|---|---|---|
 | BR3 | If a change affects the price or date, the customer must agree to it before work carries on. | [when it applies, or "Not yet defined"] | UC06 | Draft|
 |BR6 | The price on a quotation may change if the specification is revised or unusual materials are chosen. | | UC6| Draft|
+|BR7 | Only one Change with Pending status will be permitted per OrderItem at any given time | | UC6 | New (Agreed) |
 
 ## 5. Use cases
 
