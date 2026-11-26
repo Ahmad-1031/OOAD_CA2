@@ -1,0 +1,120 @@
+@startuml DCD-uc6-record-change
+title DCD UC6 Record Change
+hide empty members
+skinparam classAttributeIconSize 0
+
+class RecordChangeCoordinator {
+  - currentStaff : StaffMember
+  + findOrderItem(orderNumber : int, itemNumber : int) : ItemDetails
+  + recordChange(orderNumber : int, itemNumber : int, description : String, dimensions : String, finish : String, drawings : String, priceChange : decimal, newCompletionDate : Date) : ChangeResult
+  + recordCustomerAgreement(changeNumber : int) : ResponseResult
+  + recordCustomerRejection(changeNumber : int) : ResponseResult
+}
+
+class OrderRepository {
+  + findByNumber(orderNumber : int) : Order
+}
+
+class ChangeRepository {
+  + findByNumber(changeNumber : int) : Change
+  + add(change : Change)
+}
+
+class Order {
+  - orderNumber : int
+  - orderDate : Date
+  + findItem(itemNumber : int) : OrderItem
+}
+
+class OrderItem {
+  - itemNumber : int
+  - description : String
+  - status : String
+  - isPaused : boolean
+  - price : decimal
+  - expectedCompletionDate : Date
+  + latestApprovedVersion() : DesignVersion
+  + hasApprovedVersion() : boolean
+  + hasPendingChange() : boolean
+  + nextVersionNumber() : int
+  + addVersion(version : DesignVersion)
+  + pause()
+  + resume()
+  + updatePrice(priceChange : decimal)
+  + updateCompletionDate(newDate : Date)
+}
+
+class DesignVersion {
+  - versionNumber : int
+  - createdDate : Date
+  - dimensions : String
+  - finish : String
+  - drawings : String
+  + isApproved() : boolean
+  + getOrderItem() : OrderItem
+  + addApproval(approval : Approval)
+}
+
+class Change {
+  - changeNumber : int
+  - changeDate : Date
+  - description : String
+  - priceChange : decimal
+  - newCompletionDate : Date
+  - status : ChangeStatus
+  - responseDate : Date
+  + createDesignVersion(versionNumber : int, dimensions : String, finish : String, drawings : String) : DesignVersion
+  + affectsPriceOrDate() : boolean
+  + hasResponse() : boolean
+  + affectedItem() : OrderItem
+  + accept(recordedBy : StaffMember)
+  + reject(recordedBy : StaffMember)
+}
+
+class Approval {
+  - approvalDate : Date
+  - scope : ApprovalScope
+  - approvedParts : String
+}
+
+class StaffMember {
+  - name : String
+  - role : String
+  + createChange(description : String, priceChange : decimal, newCompletionDate : Date, basedOn : DesignVersion) : Change
+  + createApproval(version : DesignVersion, customer : Customer) : Approval
+}
+
+class Customer {
+  - name : String
+}
+
+enum ChangeStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum ApprovalScope {
+  FULL
+  PARTIAL
+}
+
+RecordChangeCoordinator ..> OrderRepository
+RecordChangeCoordinator ..> ChangeRepository
+RecordChangeCoordinator --> StaffMember
+
+OrderRepository ..> Order
+ChangeRepository ..> Change
+
+Customer "1" -- "0..*" Order : places >
+Order "1" *-- "1..*" OrderItem : contains >
+OrderItem "1" *-- "0..*" DesignVersion : keeps history of >
+DesignVersion "1" --> "0..*" Approval : receives >
+Approval "0..*" --> "1" Customer : given by >
+Approval "0..*" --> "1" StaffMember : recordedBy >
+Change "0..*" --> "1" DesignVersion : basedOn >
+Change "0..1" --> "1" DesignVersion : resultsIn >
+Change "0..*" --> "1" StaffMember : recordedBy >
+Change "0..*" --> "0..1" StaffMember : responseRecordedBy >
+
+@enduml
