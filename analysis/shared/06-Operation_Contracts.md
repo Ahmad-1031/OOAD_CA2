@@ -43,7 +43,7 @@ if the Order exists but does not contain the specified OrderItem:
 ### OC-02: Record Change
 **Operation:** recordChange(orderNumber, itemNumber, description, dimensions, finish, drawings, priceChange, newCompletionDate)
 
-**Cross-references:** UC6, SSD-01, FR4, FR7, NFR4, BR3, BR6, GH3.
+**Cross-references:** UC6, SSD-01, FR4, FR7, NFR4, BR3, BR6, BR7, GH3.
 
 **Preconditions:**
 - A StaffMember acting as Designer is identified.
