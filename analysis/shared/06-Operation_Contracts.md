@@ -43,7 +43,7 @@ if the Order exists but does not contain the specified OrderItem:
 ### OC-02: Record Change
 **Operation:** recordChange(orderNumber, itemNumber, description, dimensions, finish, drawings, priceChange, newCompletionDate)
 
-**Cross-references:** UC6, SSD-01, FR4, FR7, NFR4, BR3, BR6, BR7, GH3.
+**Cross-references:** UC6, SSD-01, FR4, FR7, NFR4, BR3, BR6, BR7, GH3, GH7, GH8, GH9, GH10, GH11.
 
 **Preconditions:**
 - A StaffMember acting as Designer is identified.
@@ -95,7 +95,7 @@ If a pending Change already exists for the OrderItem:
 
 **Operation:** recordCustomerAgreement(changeNumber)
 
-**Cross-references:** UC6, SSD-01, FR4, FR5, FR7, NFR4, BR3, GH3.
+**Cross-references:** UC6, SSD-01, FR4, FR5, FR7, NFR4, BR3, GH6, GH12.
 
 **Preconditions:**
 - A StaffMember acting as Designer is identified.

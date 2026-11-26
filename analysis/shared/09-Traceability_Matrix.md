@@ -24,15 +24,15 @@ It supports consistency verification across the product backlog, Gherkin scenari
 ## 2. Use Case Traceability
 | Use Case | Backlog | Requirements / Rules | Gherkin | SSD | Operation Contracts | CRC / GRASP | Object Interaction | Design Classes |
 |---|---|---|---|---|---|---|---|---|
-| UC6 - Record Change | US2, VS1-VS3 | FR4, FR5, FR7, NFR4, BR3, BR6, BR7 | GH3, GH4, GH6-GH9 (partial refusal coverage) | SSD-01 | OC-01 - OC-04 | CRC-06, DR-06 (awaiting peer review) | Pending | [DCD](../../dcd-uc6-record-change.puml) - verification pending |
+| UC6 - Record Change | US2, VS1-VS3 | FR4, FR5, FR7, NFR4, BR3, BR6, BR7 | GH3, GH4, GH6-GH12 (all refusal types covered; partial operation-level coverage) | SSD-01 | OC-01 - OC-04 | CRC-06, DR-06 (awaiting peer review) | Pending | [DCD](../../dcd-uc6-record-change.puml) - verification pending |
 
 ## 3. Operation-Level Traceability
 | Contract | SSD Operation | Backlog | Requirements / Rules | Gherkin Coverage | Principal CRC Classes | GRASP Decisions | DCD / Interaction |
 |---|---|---|---|---|---|---|---|
 | OC-01 | findOrderItem() | VS1 | FR4 | No explicit scenario | OrderRepository, Order, OrderItem, DesignVersion, RecordChangeCoordinator | IE-01 - IE-03, PF-01, CT-01 | [DCD](../../dcd-uc6-record-change.puml) - verification pending, Interaction pending |
-| OC-02 | recordChange() | VS1 | FR4, FR7, NFR4, BR3, BR6, BR7 | GH3, GH7, GH8, GH9 | OrderRepository, Order, OrderItem, Change, DesignVersion, StaffMember, RecordChangeCoordinator | IE-01 - IE-03, IE-05, IE-06/07, IE-08, CR-01, CR-02, PF-01, CT-01 | [DCD](../../dcd-uc6-record-change.puml) - verification pending, Interaction pending |
-| OC-03 | recordCustomerAgreement() | VS2 | FR4, FR5, FR7, NFR4, BR3 | GH6 | ChangeRepository, Change, Approval, StaffMember, Customer, DesignVersion, OrderItem, RecordChangeCoordinator | IE-02 - IE-05, IE-06/07, CR-03, PF-02, CT-01 | [DCD](../../dcd-uc6-record-change.puml) - verification pending, Interaction pending |
-| OC-04 | recordCustomerRejection() | VS3 | FR4, FR7, NFR4, BR3 | GH4 | ChangeRepository, Change, DesignVersion, OrderItem, StaffMember,   RecordChangeCoordinator | IE-02, IE-03, IE-05, IE-06/07, PF-02, CT-01 | [DCD](../../dcd-uc6-record-change.puml) - verification pending, Interaction pending |
+| OC-02 | recordChange() | VS1 | FR4, FR7, NFR4, BR3, BR6, BR7 | GH3, GH7-GH11 | OrderRepository, Order, OrderItem, Change, DesignVersion, StaffMember, RecordChangeCoordinator | IE-01 - IE-03, IE-05, IE-06/07, IE-08, CR-01, CR-02, PF-01, CT-01 | [DCD](../../dcd-uc6-record-change.puml) - verification pending, Interaction pending |
+| OC-03 | recordCustomerAgreement() | VS2 | FR4, FR5, FR7, NFR4, BR3 | GH6, GH12 | ChangeRepository, Change, Approval, StaffMember, Customer, DesignVersion, OrderItem, RecordChangeCoordinator | IE-02 - IE-05, IE-06/07, CR-03, PF-02, CT-01 | [DCD](../../dcd-uc6-record-change.puml) - verification pending, Interaction pending |
+| OC-04 | recordCustomerRejection() | VS3 | FR4, FR7, NFR4, BR3 | GH4 | ChangeRepository, Change, DesignVersion, OrderItem, StaffMember, RecordChangeCoordinator | IE-02, IE-03, IE-05, IE-06/07, PF-02, CT-01 | [DCD](../../dcd-uc6-record-change.puml) - verification pending, Interaction pending |
 
 LC-01, HC-01 and IP-01 support the overall UC6 design through separation of coordination, domain and persistence responsibilities.
 
@@ -45,13 +45,13 @@ CRC and GRASP mapping reflect the current design proposals and remain subject to
 | TC-02 | Baseline | Correct the use case references for FR5 and NFR4 | Resolved |
 | TC-03 | Gherkin , OC-03 | Customer agreement scenario covering full approval and updated price/date added in GH6 | Resolved |
 | TC-04 | Gherkin, BR3, OQ-06 | Change without price or completion date impact covered in GH7 | Resolved |
-| TC-05 | Gherkin, SSD-01, OC-01 - OC-04 | GH8 and GH9 cover pending change and missing order refusals. Remaining refusal outcoes require coverage. | Partially resolved |
+| TC-05 | Gherkin, SSD-01, OC-01 - OC-04 | GH8-GH12 cover all five refusal types. Additional operation - specific refusal scenarios and domain state preservation checks remain outstanding. | Partially resolved |
 | TC-06 | CRC-06, OQ-04, OQ-07 | Assign responsibilities for missing order, missing item and existing pending change refusals. | Resolved |
 | TC-07 | CRC-06, NFR4, OQ-05 | Include the responseRecordedBy association for customer agreement and rejection | Resolved |
 | TC-08 | CRC-06, BR3, OQ-06 | Align pause resume responsibilities with the agreed conditional pause rules. | Resolved |
 | TC-09 | CRC-06, DR-06 | Align controller responsibilities and scenario role-play with CT-01 | Resolved |
 | TC-10 | CRC-06, Gherkin | Align the proposed completion date used in the scenario examples (29 November versus 27 November). | Resolved |
-| TC-11 | DCD, Object Interaction | DCD is available. Verify design classes, operations and interaction messages against OC-01 - OC-04 and DR-06. Object Interaction Diagram is pending. | In Progress |
+| TC-11 | DCD, Object Interaction | DCD updated to reflect revised CRC responsibilities. Final verification of design operations, result types, conditional resumption and interaction message remains outstanding. Object Interaction Diagram is pending. | In Progress |
 
 The outstanding checks identify traceability and consistency gaps in the current artefacts. They do not constitute completed peer review or approval.
 
