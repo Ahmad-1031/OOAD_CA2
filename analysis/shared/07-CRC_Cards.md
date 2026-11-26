@@ -1,14 +1,19 @@
 
-# 07 – CRC Cards and Responsibility Assignment
+# CRC Cards – UC6 Record Change
 
-## UC6 – Record Change
-
-**Author:** [Ahmad]  
-**Reviewer:** []  
-**Date:** [25/11/26]  
-**Status:** Draft  
+| Field | Details |
+|---|---|
+| Artefact ID | CRC-06 |
+| Artefact Name | CRC Cards – UC6 Record Change |
+| Owner | Ahmad |
+| Reviewer | [Group member name] |
+| Related Use Case | UC6 – Record Change |
+| Input Artefacts | Domain Model, Gherkin Scenarios, SSD and Operation Contracts (OC-01 to OC-04) |
+| Leads Into | GRASP Design Rationale (DR-06), Design Class Diagram (DCD) and Object Sequence Diagrams (SD) |
+| Status | Awaiting Peer Review |
 
 ---
+<br>
 
 ## 1. Purpose
 
@@ -25,26 +30,14 @@ Interaction Sequence Diagram.
 
 ---
 
-## 2. Source Artefacts
 
-| Artefact | Reference |
-|---|---|
-| User Story | [Reference] |
-| Use Case | UC6 – Record Change |
-| Gherkin Scenarios | record-change.feature |
-| System Sequence Diagram | ssd-uc6-record-change.puml |
-| Operation Contracts | 06-Operation_Contracts.md |
-| Domain Model | uc6-domain-model.puml |
-| Business Rules | [Reference] |
-
----
 
 ## 3. Required Responsibilities
 
 The following responsibilities are derived from the operation 
 contracts before being assigned to individual classes.
 
-### 3.1 OC-01 – findOrderItem
+### 2.1 OC-01 – findOrderItem
 |Required Responsibility | Type | Assign Class |
 |---|---|---|
 |Identify the order using  its **orderNumber** | Doing | OrderRepository(proposed) |
@@ -57,7 +50,7 @@ contracts before being assigned to individual classes.
 |Return the current order item details | Doing | RecordChangeCoordinator(proposed) |
 
 
-### 3.2 OC-02 – recordChange
+### 2.2 OC-02 – recordChange
 |Required Responsibility | Type | Class |
 |---|---|---|
 |Locate Order using it's **OrderNumber** | Doing | OrderRepository (proposed) |
@@ -93,7 +86,7 @@ contracts before being assigned to individual classes.
 
 
 
-### 3.3 OC-03 – recordCustomerAgreement
+### 2.3 OC-03 – recordCustomerAgreement
 |Required Responsibility | Type | Class |
 |---|---|---|
 |Locate Change using changeNumber | Doing | ChangeRepository (Proposed)
@@ -129,7 +122,7 @@ contracts before being assigned to individual classes.
 
 
 
-### 3.4 OC-04 – recordCustomerRejection
+### 2.4 OC-04 – recordCustomerRejection
 |Required Responsibility | Type | Class |
 |---|---|---|
 |Locate the Change using the supplied ChnageNumber | Doing | ChangeRepository (Proposed)
@@ -159,19 +152,13 @@ contracts before being assigned to individual classes.
 
 
 
-
-
-
-
-
-
-## 4. CRC Cards
+## 3. CRC Cards
 
 The following CRC cards assign focused knowing and doing 
 responsibilities to the selected classes.
 
 
-### 4.1 Order
+### 3.1 Order
 
 | Knowing Responsibilities | Doing Responsibilities | Collaborators |
 |---|---|---|
@@ -180,7 +167,7 @@ responsibilities to the selected classes.
 | | Locate the relevant OrderItem using itemNumber | OrderItem |
 
 
-### 4.2 OrderItem
+### 3.2 OrderItem
 
 | Knowing Responsibilities | Doing Responsibilities | Collaborators |
 |---|---|---|
@@ -200,7 +187,7 @@ responsibilities to the selected classes.
 | | Update price according to priceChange | Change |
 | | Return current OrderItem details | DesignVersion |
 
-### 4.3 DesignVersion
+### 3.3 DesignVersion
 
 | Knowing Responsibilities | Doing Responsibilities | Collaborators |
 |---|---|---|
@@ -215,7 +202,7 @@ responsibilities to the selected classes.
 | | Provide versionNumber | |
 | | Preserve existing Approval records | Approval |
 
-### 4.4 Change
+### 3.4 Change
 
 | Knowing Responsibilities | Doing Responsibilities | Collaborators |
 |---|---|---|
@@ -242,7 +229,7 @@ responsibilities to the selected classes.
 | | Determine whether Change has already received a customer response | |
 | | Identify the OrderItem affected by the Change | DesignVersion |
 
-### 4.5 Approval
+### 3.5 Approval
 
 | Knowing Responsibilities | Doing Responsibilities | Collaborators |
 |---|---|---|
@@ -258,7 +245,7 @@ responsibilities to the selected classes.
 | | Associate Approval with the StaffMember recording it | StaffMember |
 
 
-### 4.6 Customer
+### 3.6 Customer
 
 | Knowing Responsibilities | Doing Responsibilities | Collaborators |
 |---|---|---|
@@ -268,7 +255,7 @@ responsibilities to the selected classes.
 
 
 
-### 4.7 StaffMember
+### 3.7 StaffMember
 
 | Knowing Responsibilities | Doing Responsibilities | Collaborators |
 |---|---|---|
@@ -280,10 +267,10 @@ responsibilities to the selected classes.
 | | Record Approval instance | Approval |
 
 
-## 5. Proposed Design Classes
+## 4. Proposed Design Classes
 
 
-### 5.1 OrderRepository (Proposed)
+### 4.1 OrderRepository (Proposed)
 
 OrderRepository is proposed to provide access to existing
 Order instances without assigning retrieval responsibilities
@@ -294,7 +281,7 @@ to individual domain objects.
 | Locate an Order using the supplied orderNumber | Order |
 | Provide the identified Order instance | Order |
 
-### 5.2 ChangeRepository (Proposed)
+### 4.2 ChangeRepository (Proposed)
 
 ChangeRepository is proposed to provide direct access to
 existing Change instances without requiring navigation
@@ -312,14 +299,14 @@ into the Design Class Diagram.
 
 
 
-## 6. Scenario Role-Play
+## 5. Scenario Role-Play
 
 The CRC cards are tested by role-playing the selected 
 scenarios to ensure that every required responsibility 
 has an appropriate owner.
 
 
-### 6.1 Main Success Scenario – Record a Change
+### 5.1 Main Success Scenario – Record a Change
 
 **Gherkin reference:** A change to the price pauses work until the customer agrees.
 
@@ -358,7 +345,7 @@ has an appropriate owner.
 | isPaused | True |
 
 
-### 6.2 Alternative Scenario – Customer Rejection
+### 5.2 Alternative Scenario – Customer Rejection
 
 **Gherkin reference:** A rejected change keeps the previous approved version.
 

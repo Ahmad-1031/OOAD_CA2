@@ -1,5 +1,19 @@
 # GRASP Design Rationale – UC6 Record Change
 
+| Field | Details |
+|---|---|
+| Artefact ID | DR-06 |
+| Artefact Name | GRASP Design Rationale – UC6 Record Change |
+| Owner | Ahmad |
+| Reviewer | [Group member name] |
+| Related Use Case | UC6 – Record Change |
+| Input Artefacts | Domain Model, SSD, Operation Contracts (OC-01 to OC-04), CRC Cards and Scenario Role-Play |
+| Leads Into | Design Class Diagram (DCD) and Object Sequence Diagrams (SD) |
+| Status | Awaiting Peer Review |
+
+---
+<br>
+
 ## 1. Purpose
 
 This document evaluates and justifies the responsibility
@@ -50,4 +64,17 @@ Record Change using GRASP principles.
 |---|---|---|---|---|
 | LC-01 | Separate object retrieval from domain responsibilities | OrderRepository, ChangeRepository | Low Coupling: Assigning retrieval responsibilities to repositories reduces dependencies on the underlying storage technology and separates persistence responsibilities from domain responsibilities, minimising the impact of future storage changes. | RecordChangeCoordinator: Assigning direct retrieval from persistent storage to RecordChangeCoordinator would introduce unnecessary dependencies on storage technology and reduce its focus on coordinating system events. |
 | HC-01 | Separate use-case coordination from domain responsibilities | RecordChangeCoordinator | High Cohesion: Grouping UC6 coordination responsibilities within RecordChangeCoordinator allows domain classes to remain focused on their own responsibilities rather than managing the entire use case. | StaffMember: Assigning use-case coordination to StaffMember could overload the class with unrelated responsibilities as the system grows, resulting in low cohesion and making future changes more difficult. |
+
+### 3.5 Pure Fabrication
+
+| ID | Responsibility | Assigned Class | GRASP Rationale | Alternative Rejected |
+|---|---|---|---|---|
+| PF-01 | Locate Order using orderNumber | OrderRepository | Pure Fabrication: OrderRepository is introduced as a software class responsible for retrieving Order instances, keeping persistence responsibilities separate from domain responsibilities and promoting low coupling and high cohesion. | Order: An individual Order knows its own orderNumber but does not have knowledge of all stored Order instances. Assigning retrieval responsibilities to Order would reduce cohesion. |
+| PF-02 | Locate Change using changeNumber | ChangeRepository | Pure Fabrication: ChangeRepository is introduced as a software class responsible for retrieving Change instances directly using their changeNumber, avoiding unnecessary navigation through Order and OrderItem. | Change: An individual Change knows its own changeNumber but does not have knowledge of all stored Change instances. Assigning retrieval responsibilities to Change would reduce cohesion. |
+
+### 3.6 Indirection and Protected Variations
+
+| ID | Responsibility | Assigned Class | GRASP Rationale | Alternative Rejected |
+|---|---|---|---|---|
+| IP-01 | Isolate storage implementation details | OrderRepository, ChangeRepository | Indirection and Protected Variations: The repositories act as intermediaries between RecordChangeCoordinator and persistent storage. Providing stable repository interfaces allows the underlying storage implementation to change without requiring changes to the controller or domain classes. | RecordChangeCoordinator: Allowing the controller to interact directly with persistent storage would increase coupling to the underlying storage technology and make future changes more difficult. |
 
