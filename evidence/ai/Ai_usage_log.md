@@ -19,3 +19,22 @@
 **What I did:**
 [Revised the response given keeping only table columns I felt were relevant. Added lecturer approval and affects columns as well as giving small descriptions in each section as a starting guide]
 
+## AI-[02]
+
+**Tool:** [AI]
+**Member** [Andrii Badieiev]
+**Date:** 2026-11-27
+
+**Prompt**
+> Identify inconsistencies across requirements,
+> Gherkin, SSDs, contracts and model.
+
+**Response:**
+Identified potential inconsistencies across the UC6 analysis and design artefact
+
+[Traceability Matrix](../../analysis/shared/09-Traceability_Matrix.md)
+
+[Operation Contracts](../../analysis/shared/06-Operation_Contracts.md)
+
+**What I did:** 
+Documented outstanding consistency checks, updated the traceability mappings.
