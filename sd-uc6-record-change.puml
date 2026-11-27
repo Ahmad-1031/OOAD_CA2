@@ -1,0 +1,27 @@
+@startuml SD-01-find-order-item
+hide footbox
+title SD-01 findOrderItem
+
+actor Designer
+participant ":RecordChangeCoordinator" as C
+participant ":OrderRepository" as OR
+participant "order :Order" as O
+participant "item :OrderItem" as I
+participant ":DesignVersion" as V
+
+Designer -> C : findOrderItem(orderNumber, itemNumber)
+C -> OR : order = findByNumber(orderNumber)
+break order not found
+  C --> Designer : refused(ORDER_NOT_FOUND)
+end
+C -> O : item = findItem(itemNumber)
+break item not found in the order
+  C --> Designer : refused(ORDER_ITEM_NOT_FOUND)
+end
+C -> I : version = latestApprovedVersion()
+loop each DesignVersion, newest first
+  I -> V : isFullyApproved()
+end
+C -> I : details = getDetails()
+C --> Designer : itemDetails(latestApprovedVersion, status, price, expectedCompletionDate)
+@enduml

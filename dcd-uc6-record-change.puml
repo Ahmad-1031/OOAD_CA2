@@ -18,12 +18,14 @@ class OrderRepository {
 class ChangeRepository {
   + findByNumber(changeNumber : int) : Change
   + add(change : Change)
+  + nextChangeNumber() : int
 }
 
 class Order {
   - orderNumber : int
   - orderDate : Date
   + findItem(itemNumber : int) : OrderItem
+  + getCustomer() : Customer
 }
 
 class OrderItem {
@@ -42,6 +44,8 @@ class OrderItem {
   + resumeAfter(change : Change)
   + updatePrice(priceChange : decimal)
   + updateCompletionDate(newDate : Date)
+  + getDetails() : ItemDetails
+  + getOrder() : Order
 }
 
 class DesignVersion {
@@ -68,6 +72,7 @@ class Change {
   + hasResponse() : boolean
   + isPending() : boolean
   + affectedItem() : OrderItem
+  + proposedVersion() : DesignVersion
   + accept(recordedBy : StaffMember)
   + reject(recordedBy : StaffMember)
 }
@@ -90,6 +95,26 @@ class Customer {
   - name : String
 }
 
+class ItemDetails {
+  - latestApprovedVersion : int
+  - status : String
+  - price : decimal
+  - expectedCompletionDate : Date
+}
+
+class ChangeResult {
+  - changeNumber : int
+  - newVersionNumber : int
+  - itemPaused : boolean
+}
+
+class ResponseResult {
+  - latestApprovedVersion : int
+  - price : decimal
+  - expectedCompletionDate : Date
+  - itemPaused : boolean
+}
+
 enum ChangeStatus {
   PENDING
   ACCEPTED
@@ -104,6 +129,9 @@ enum ApprovalScope {
 RecordChangeCoordinator ..> OrderRepository
 RecordChangeCoordinator ..> ChangeRepository
 RecordChangeCoordinator --> StaffMember
+RecordChangeCoordinator ..> ItemDetails
+RecordChangeCoordinator ..> ChangeResult
+RecordChangeCoordinator ..> ResponseResult
 
 OrderRepository ..> Order
 ChangeRepository ..> Change
@@ -114,7 +142,7 @@ OrderItem "1" *-- "0..*" DesignVersion : keeps history of >
 DesignVersion "1" --> "0..*" Approval : receives >
 Approval "0..*" --> "1" Customer : given by >
 Approval "0..*" --> "1" StaffMember : recordedBy >
-Change "0..*" --> "1" DesignVersion : basedOn >
+Change "0..*" -- "1" DesignVersion : basedOn >
 Change "0..1" --> "1" DesignVersion : resultsIn >
 Change "0..*" --> "1" StaffMember : recordedBy >
 Change "0..*" --> "0..1" StaffMember : responseRecordedBy >
