@@ -55,4 +55,4 @@ Documented outstanding consistency checks, updated the traceability mappings.
 [Design Dossier](../../docs/dossier/CA2-Design-Dossier.md)
 
 **What I did:**
-[Checked the sections against the updated brief and rubric weights. Suggested owners based on who produced each artefact, to be agreed with the group. Noted that the word targets come to about 4,100 and need trimming, and that the links to the detailed use case (03a) and the package view (11) will not work until those files are added]
+[Checked the sections against the updated brief and rubric weights. Suggested owners based on who produced each artefact, to be agreed with the group.]
