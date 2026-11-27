@@ -65,7 +65,9 @@ contracts before being assigned to individual classes.
 |Know staff member's role | Knowing | StaffMember |
 |Know the original approved DesignVersion associated with the Change | Knowing | Change |
 |Know the proposed DesignVersion associated with the Change | Knowing | Change |
+| Provide the next globally unique changeNumber | Doing | ChangeRepository |
 |Create new change instance | Doing | StaffMember |
+| Assign the supplied changeNumber when creating the Change | Doing | StaffMember |
 |Create new design version instance | Doing | Change |
 |Know the unique changeNumber assigned to Change | Knowing | Change |
 |Know the versionNumber of a DesignVersion | Knowing |DesignVersion | 
@@ -83,15 +85,18 @@ contracts before being assigned to individual classes.
 |Know whether the OrderItem isPaused | Knowing | OrderItem |
 |Associate change with the original approved DesignVersion | Doing | Change |
 |Associate change with newly created DesignVersion | Doing | Change |
+| Associate the newly created DesignVersion with the OrderItem | Doing | OrderItem |
 | Associate Change with the StaffMember recording it through recordedBy | Doing | Change |
 | Ensure responseRecordedBy remains unset when the Change is created | Constraint | Change |
-| Determine whether the Change affects the price or expected completion date | Doing | OrderItem |
+| Determine whether the Change affects the price or expected completion date | Doing | Change |
+| Consult the Change to determine whether work should be paused | Doing | OrderItem |
 | Pause work on the affected OrderItem only when the Change affects the price or expected completion date | Doing | OrderItem |
 | Preserve the existing pause state when the Change affects neither price nor expected completion date | Constraint | OrderItem |
 | Preserve the existing production status of the OrderItem | Constraint | OrderItem |
 | Preserve the previous approved DesignVersion without modification | Constraint | Operation-wide constraint |
 |Retain original DesignVersion as the latest approved version | Doing | OrderItem|
 |Preserve the original price and expected completion date of OrderItem | Doing | OrderItem |
+| Register the newly created Change instance | Doing | ChangeRepository |
 |Return changeNumber, newVersionNumber and itemPaused | Doing | RecordChangeCoordinator |
 | Return NO_APPROVED_VERSION when no fully approved DesignVersion exists | Doing | RecordChangeCoordinator |
 | Determine whether the specified Order exists | Doing | OrderRepository |
@@ -113,7 +118,7 @@ contracts before being assigned to individual classes.
 ### 2.3 OC-03 – recordCustomerAgreement
 |Required Responsibility | Type | Class |
 |---|---|---|
-|Locate Change using changeNumber | Doing | ChangeRepository (Proposed)
+|Locate Change using changeNumber | Doing | ChangeRepository (Proposed) |
 |Know StaffMember recording customer agreement | Knowing | Approval |
 |Set change status to Accepted | Doing | Change |
 |Record customer agreement responseDate | Doing | Change |
@@ -124,12 +129,18 @@ contracts before being assigned to individual classes.
 |Know the current status of the change | Knowing | Change |
 |Know the proposed new completionDate | Knowing | Change |
 |Know proposed DesignVersion associated with the Change | Knowing | Change |
+| Provide the proposed DesignVersion associated with the Change | Doing | Change |
 |Associate approval with proposed DesignVersion | Doing | Approval |
+| Associate a new Approval with the DesignVersion | Doing | DesignVersion |
 |Know the Customer who agreed to the Change | Knowing | Approval |
 |Associate approval with customer who agreed to change | Doing | Approval |
 |Associate approval with StaffMember that recorded agreement | Doing | StaffMember |
 |Establish proposed design version is latest approved version for OrderItem | Doing | OrderItem |
 |Know OrderItem affected by Change | Knowing | DesignVersion |
+| Identify the OrderItem affected by the Change | Doing | Change |
+| Provide the OrderItem associated with the DesignVersion | Doing | DesignVersion |
+| Provide the Order associated with the OrderItem | Doing | OrderItem |
+| Provide the Customer associated with the Order | Doing | Order |
 |Know OrderItem price | Knowing | OrderItem |
 |Know recorded priceChange | Knowing | Change | 
 |Update OrderItem price according to the recorded priceChange| Doing | OrderItem |
@@ -160,12 +171,14 @@ contracts before being assigned to individual classes.
 ### 2.4 OC-04 – recordCustomerRejection
 |Required Responsibility | Type | Class |
 |---|---|---|
-|Locate the Change using the supplied ChnageNumber | Doing | ChangeRepository (Proposed)
+|Locate the Change using the supplied changeNumber | Doing | ChangeRepository (Proposed) |
 | Know the StaffMember who recorded the customer response | Knowing | Change |
 | Associate Change with the StaffMember recording customer rejection through responseRecordedBy | Doing | Change |
 | Preserve the original recordedBy association | Constraint | Change |
 |Set Change status to 'Rejected' | Doing | Change |
 |Record the responseDate of the Change | Doing | Change |
+| Identify the OrderItem affected by the Change | Doing | Change |
+| Provide the OrderItem associated with the DesignVersion | Doing | DesignVersion |
 |Know previous approved DesignVersion | Knowing | Change |
 |Retain the previous approved DesignVersion as the latest approved version of the OrderItem | Doing | OrderItem |
 |Know the proposed DesignVersion associated with the rejected change | Knowing | Change |
@@ -180,7 +193,7 @@ contracts before being assigned to individual classes.
 |Preserve the existing associations between the Change and both DesignVersion instances | Doing | Change |
 |Ensure no new approval is created when recording rejection | Doing (constraint) | Operation-wide constraint |
 |Ensure no domain objects are created or deleted | Doing (constraint) | Operation-wide constraint |
-|Know the latest approved DesignVersion | Knowing | OrderItem | OrderItem |
+|Know the latest approved DesignVersion | Knowing | OrderItem |
 |Know the current OrderItem price | Knowing | OrderItem |
 |Know the current expectedCompletionDate | Knowing | OrderItem |
 |Know whether the OrderItem is paused | Knowing | OrderItem |
@@ -211,8 +224,10 @@ responsibilities to the selected classes.
 |---|---|---|
 | Know associated OrderItems | | OrderItem |
 | Know orderNumber | | |
+|Know the Customer who placed the Order | | Customer |
 | | Locate the relevant OrderItem using itemNumber | OrderItem |
 | | Determine whether the specified OrderItem exists within the Order | OrderItem |
+| | Provide the Customer associated with the Order | Customer |
 
 
 ### 3.2 OrderItem
@@ -225,11 +240,12 @@ responsibilities to the selected classes.
 | Know item description | | |
 | Know expectedCompletionDate | | |
 | Know associated DesignVersions | | DesignVersion |
+| Know the Order associated with the OrderItem | | Order |
 | Know whether OrderItem is paused | | |
 | | Determine the latest approved DesignVersion | DesignVersion |
 | | Determine whether a fully approved DesignVersion exists | DesignVersion |
 | | Associate a new DesignVersion with the OrderItem | DesignVersion |
-| | Determine whether a Change affects the price or expected completion date | Change |
+| | Consult the Change to determine whether work should be paused | Change |
 | | Pause work only when a Change affects the price or expected completion date | Change |
 | | Determine whether a Change caused the OrderItem to be paused | Change |
 | | Determine whether any other blocking conditions remain | |
@@ -238,6 +254,7 @@ responsibilities to the selected classes.
 | | Update expectedCompletionDate based on newCompletionDate | Change |
 | | Update price according to priceChange | Change |
 | | Provide current OrderItem details | DesignVersion |
+| | Provide the Order associated with the OrderItem | Order |
 | | Determine whether the OrderItem already has a pending Change | DesignVersion, Change |
 | | Determine the next versionNumber | DesignVersion |
 
@@ -265,6 +282,8 @@ responsibilities to the selected classes.
 | Know associated Approval records | | Approval |
 | | Determine whether the DesignVersion is approved | Approval |
 | | Provide versionNumber | |
+| | Provide the OrderItem associated with the DesignVersion | OrderItem |
+| | Associate a new Approval with the DesignVersion | Approval |
 | | Preserve existing Approval records | Approval |
 | | Determine whether the DesignVersion is fully approved | Approval |
 
@@ -296,7 +315,9 @@ responsibilities to the selected classes.
 | | Set Change status to Rejected | |
 | | Determine whether Change has already received a customer response | |
 | | Identify the OrderItem affected by the Change | DesignVersion |
+| | Provide the proposed DesignVersion associated with the Change | DesignVersion |
 | | Determine whether the Change has Pending status | |
+| | Determine whether the Change affects the price or expected completion date | |
 
 ### 3.5 Approval
 
@@ -335,7 +356,7 @@ responsibilities to the selected classes.
 | Know associated Changes originally recorded by the StaffMember | | Change |
 | Know associated Changes for which the StaffMember recorded the customer response | | Change |
 | Know associated Approval records | | Approval |
-| | Create a new Change instance | Change |
+| | Create a new Change instance using the supplied changeNumber | Change |
 | | Record Approval instance | Approval |
 
 
@@ -360,11 +381,15 @@ ChangeRepository is proposed to provide direct access to
 existing Change instances without requiring navigation
 through Order, OrderItem and DesignVersion.
 
+It is also responsible for providing globally unique changeNumber values and registering newly created Change instances.
+
 | Responsibilities | Collaborators |
 |---|---|
 | Locate a Change using the supplied changeNumber | Change |
 | Provide the identified Change instance | Change |
 | Report when a specified Change does not exist | |
+|Provide the next globally unique changeNumber | Change |
+|Register newly created Change instances | Change |
 
 The proposed classes will be evaluated and justified
 through GRASP principles before being incorporated
@@ -387,11 +412,15 @@ objects and returns operation outcomes.
 | Coordinate identification of the affected OrderItem | Order, Change |
 | Coordinate refusal checks before modifying domain state | OrderRepository, Order, OrderItem, ChangeRepository, Change |
 | Coordinate creation of Change and Approval instances | StaffMember |
+| Coordinate allocation of globally unique changeNumber values | ChangeRepository |
+| Coordinate registration of newly created Change instances | ChangeRepository |
 | Coordinate creation and association of new DesignVersion instances | Change, OrderItem |
 | Coordinate customer agreement and rejection operations | Change, OrderItem, StaffMember |
+| Coordinate retrieval of the Customer associated with the affected OrderItem | Change, DesignVersion, OrderItem, Order |
+| Coordinate association of the new Approval with the proposed DesignVersion | DesignVersion, Approval |
 | Coordinate retrieval of operation result details | OrderItem, Change, DesignVersion |
-| Return successful operation outcomes | |
-| Return refusal outcomes | |
+| Return successful operation outcomes through the appropriate result objects | ItemDetails, ChangeResult, ResponseResult |
+| Return refusal outcomes through the appropriate result objects | ItemDetails, ChangeResult, ResponseResult, Refusal |
 
 **Related GRASP Decisions:** CT-01, LC-01, HC-01.
 
@@ -426,17 +455,20 @@ has an appropriate owner.
 | 12 | Confirm DesignVersion 2 is fully approved | DesignVersion |
 | 13 | Determine whether OrderItem 1 already has a pending Change | OrderItem |
 | 14 | Confirm refusal conditions do not apply | RecordChangeCoordinator |
-| 15 | Create a new Change instance | StaffMember |
-| 16 | Determine the next versionNumber | OrderItem |
-| 17 | Create DesignVersion 3 based on DesignVersion 2 | Change |
-| 18 | Associate the new DesignVersion with OrderItem | OrderItem |
-| 19 | Associate Change with the original and proposed DesignVersions | Change |
-| 20 | Associate Change with the StaffMember through recordedBy | Change |
-| 21 | Record changeDate | Change |
-| 22 | Set Change status to Pending | Change |
-| 23 | Determine whether the Change affects price or expected completion date | OrderItem |
-| 24 | Pause work on OrderItem 1 because both price and completion date are affected | OrderItem |
-| 25 | Return changeNumber, newVersionNumber and itemPaused | RecordChangeCoordinator |
+| 15 | Provide the next globally unique changeNumber | ChangeRepository |
+| 16 | Create a new Change instance using the supplied changeNumber | StaffMember |
+| 17 | Determine the next versionNumber | OrderItem |
+| 18 | Create DesignVersion 3 based on DesignVersion 2 | Change |
+| 19 | Associate the new DesignVersion with OrderItem | OrderItem |
+| 20 | Associate Change with the original and proposed DesignVersions | Change |
+| 21 | Associate Change with the StaffMember through recordedBy | Change |
+| 22 | Record changeDate | Change |
+| 23 | Set Change status to Pending | Change |
+| 24 | Register the newly created Change instance | ChangeRepository |
+| 25 | Consult the Change to determine whether work should be paused | OrderItem |
+| 26 | Determine whether the Change affects price or expected completion date | Change |
+| 27 | Pause work on OrderItem 1 because both price and completion date are affected | OrderItem |
+| 28 | Return changeNumber, newVersionNumber and itemPaused | RecordChangeCoordinator |
 
 #### Expected Outcome
 
@@ -467,17 +499,18 @@ has an appropriate owner.
 | 2 | Locate Change using the supplied changeNumber | ChangeRepository |
 | 3 | Determine whether Change has already received a customer response | Change |
 | 4 | Confirm refusal conditions do not apply | RecordChangeCoordinator |
-| 5 | Identify the OrderItem affected by the Change | Change / DesignVersion |
-| 6 | Set Change status to Rejected | Change |
-| 7 | Record customer responseDate | Change |
-| 8 | Associate Change with the StaffMember recording rejection through responseRecordedBy | Change |
-| 9 | Determine whether the rejected Change caused the OrderItem to be paused | OrderItem |
-| 10 | Determine whether any other blocking conditions remain | OrderItem |
-| 11 | Lift the pause associated with the rejected Change if no other blocking conditions remain | OrderItem |
-| 12 | Determine the latest approved DesignVersion | OrderItem |
-| 13 | Determine whether the DesignVersion is approved | DesignVersion |
-| 14 | Provide current OrderItem details | OrderItem |
-| 15 | Return latestApprovedVersion, price, expectedCompletionDate and itemPaused | RecordChangeCoordinator |
+| 5 | Identify the OrderItem affected by the Change | Change |
+| 6 | Provide the OrderItem associated with the DesignVersion | DesignVersion |
+| 7 | Set Change status to Rejected | Change |
+| 8 | Record customer responseDate | Change |
+| 9 | Associate Change with the StaffMember recording rejection through responseRecordedBy | Change |
+| 10 | Determine whether the rejected Change caused the OrderItem to be paused | OrderItem |
+| 11 | Determine whether any other blocking conditions remain | OrderItem |
+| 12 | Lift the pause associated with the rejected Change if no other blocking conditions remain | OrderItem |
+| 13 | Determine the latest approved DesignVersion | OrderItem |
+| 14 | Determine whether the DesignVersion is approved | DesignVersion |
+| 15 | Provide current OrderItem details | OrderItem |
+| 16 | Return latestApprovedVersion, price, expectedCompletionDate and itemPaused | RecordChangeCoordinator |
 
 #### Expected Outcome
 
