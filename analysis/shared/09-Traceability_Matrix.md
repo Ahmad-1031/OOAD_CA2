@@ -20,6 +20,8 @@ It supports consistency verification across the product backlog, Gherkin scenari
 | GRASP Decisions | [GRASP](./08-Grasp.md) |
 | Design Class Diagram | [PlantUML](../../dcd-uc6-record-change.puml), [Diagram](../../dcd-uc6-record-change.png) |
 | Object Interaction Diagram | [Interaction Documentation](./10-Object_Interaction_Diagrams.md), [PlantUML](../../sd-uc6-record-change.puml) |
+| Design Structure and Interface | [Design Structure](./11-Design_Structure_and_Interfaces.md) |
+| Package Diagram | [PlantUML](../../package-uc6-record-change.puml), [Diagram](../../package-uc6-record-change.png) |
 | Decision Log | [Decision Records](../../docs/decisions/decisions_backlog.md) |
 
 ## 2. Use Case Traceability
@@ -37,6 +39,8 @@ It supports consistency verification across the product backlog, Gherkin scenari
 
 LC-01, HC-01 and IP-01 support the overall UC6 design through separation of coordination, domain and persistence responsibilities.
 
+The [Design Structure and Shared Interfaces](./11-Design_Structure_and_Interfaces.md) and [Package Diagram](../../package-uc6-record-change.puml) document the application, domain and persistence boundaries, supporting CT-01, PF-01, PF-02, LC-01, HC-01 and IP-01. Final cross-artefact consistency verification remains outstanding.
+
 CRC and GRASP mapping reflect the current design proposals and remain subject to peer review and consistency verification.
 
 ## 4. Outstanding Consistency Checks
@@ -46,7 +50,7 @@ CRC and GRASP mapping reflect the current design proposals and remain subject to
 | TC-02 | Baseline | Correct the use case references for FR5 and NFR4 | Resolved |
 | TC-03 | Gherkin , OC-03 | Customer agreement scenario covering full approval and updated price/date added in GH6 | Resolved |
 | TC-04 | Gherkin, BR3, OQ-06 | Change without price or completion date impact covered in GH7 | Resolved |
-| TC-05 | Gherkin, SSD-01, OC-01 - OC-04, SD-01 - SD-04 | GH13 and GH14 provide direct coverage of OC-01 and the OC-04 refusal. All four operations and all five refusal types are covered. Explicit findOrderItem refusal scenarios, unknown changeNumber scenarios and comprehensive domain state preservation checks remain outstanding. Gherkin references in the interaction documentation have been aligned. Gherkin mapping in the Detailed Use Case require alignment with actual scenario coverage. | Partially resolved |
+| TC-05 | Detailed UC6, Gherkin, SSD-01, OC-01 - OC-04, SD-01 - SD-04, Design Structure | GH13 and GH14 provide direct coverage of OC-01 and the OC-04 refusal. All four operations and all five refusal types are covered. Explicit findOrderItem refusal scenarios, unknown changeNumber scenarios and comprehensive domain state preservation checks remain outstanding. Gherkin mappings in the Detailed Use Case and Design Structure require alignment with actual scenario coverage. | Partially resolved |
 | TC-06 | CRC-06, OQ-04, OQ-07 | Assign responsibilities for missing order, missing item and existing pending change refusals. | Resolved |
 | TC-07 | CRC-06, NFR4, OQ-05 | Include the responseRecordedBy association for customer agreement and rejection | Resolved |
 | TC-08 | CRC-06, BR3, OQ-06 | Align pause resume responsibilities with the agreed conditional pause rules. | Resolved |
