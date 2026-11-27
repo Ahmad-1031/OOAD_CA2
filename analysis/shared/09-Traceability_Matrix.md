@@ -51,7 +51,7 @@ CRC and GRASP mapping reflect the current design proposals and remain subject to
 | TC-08 | CRC-06, BR3, OQ-06 | Align pause resume responsibilities with the agreed conditional pause rules. | Resolved |
 | TC-09 | CRC-06, DR-06 | Align controller responsibilities and scenario role-play with CT-01 | Resolved |
 | TC-10 | CRC-06, Gherkin | Align the proposed completion date used in the scenario examples (29 November versus 27 November). | Resolved |
-| TC-11 | DCD, CRC-06, DR-06, SD-01 - SD-04, OC-03, OC-04 | itemPaused handling has been aligned and Refusal and RefusalCode have been intoduced. The Operation Contracts have been aligned with the proposed UC6-only pause scope. Team confirmation, original price/date impact identification, refusal return conventions, missing CRC responsibilities and final cross-artefact consistency remain outstanding. | In Progress |
+| TC-11 | DCD, CRC-06, DR-06, SD-01 - SD-04, OC-03, OC-04 | itemPaused handling has been aligned. Refusal outcomes are represented through optional Refusal attributes in the result types. Original price/date impact is determined using the Change's own attributes. Conditional completion date updates in SD-03, UC6-only pause scope confirmation, missing CRC responsibilities and final cross-artefact consistency cerification remain outstanding. | In Progress |
 
 The outstanding checks identify traceability and consistency gaps in the current artefacts. They do not constitute completed peer review or approval.
 

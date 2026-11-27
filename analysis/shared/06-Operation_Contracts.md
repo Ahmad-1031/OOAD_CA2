@@ -54,7 +54,8 @@ if the Order exists but does not contain the specified OrderItem:
 - A globally unique changeNumber was assigned to the Change.
 - A new versionNumber and createdDate were assigned to the DesignVersion.
 - The dimensions, finish and drawings of the new DesignVersion were recorded.
-- The description, priceChange, newCompletionDate and changeDate of the Change were recorded.
+- The description, priceChange and changeDate of the Change were recorded.
+- The newCompletionDate of the Change was recorded only if the expected completion date was affected. Otherwise, newCompletionDate remained unset.
 - The Change status was set to Pending.
 - The Change was associated with the original approved DesignVersion.
 - The Change was associated with the newly created DesignVersion.
@@ -115,7 +116,8 @@ If a pending Change already exists for the OrderItem:
 - The Approval was associated with the StaffMember who recorded the agreement.
 - The proposed DesignVersion became the latest approved version of the OrderItem.
 - The OrderItem price was updated according to the recorded priceChange.
-- The OrderItem expectedCompletionDate was set to the recorded newCompletionDate.
+- If the Change contained a newCompletionDate, the OrderItem expectedCompletionDate was set to that date.
+- Otherwise, the existing expectedCompletionDate of the OrderItem remained unchanged.
 - If the Change had caused the OrderItem to be paused, the isPaused attribute was set to false.
 - Otherwise, the existing pause state of the OrderItem remained unchanged.
 - The existing production status of the OrderItem remained unchanged.
@@ -318,6 +320,10 @@ Only affected OrderItem will be paused, rather than entire Order.
 **Agreed**- Ahmad
 
 **Revised Decision:** Only changes affecting the price or expected completion date will cause the affected OrderItem to be paused.
+
+Price or completion date impact is determined using the Change's own attributes. A non-zero priceChange or a specified newCompletionDate indicates that the Change affects the price or expected completion date.
+
+if the expected completion date is not affected, newCompletionDate remains unset.
 
 If neither is affected, the existing pause state of the OrderItem will remain unchanged.
 
