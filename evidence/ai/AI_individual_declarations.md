@@ -4,7 +4,13 @@ Each member states how they used AI, which work it affected, and how the content
 
 ## Ahmad Shahzad
 
-\[To be completed]
+Throughout the project, I used ChatGPT to help me understand different parts of the project as I went along. For example, during scenario selection and suitability matrix, I used AI to help me understand how to approach analysing each member's scenario, what to look for and what to consider when comparing them them.
+
+During the CRC Cards and GRASP sections, I asked AI to help me first understand the different principles and what I needed to consider in each section. I wrote my own drafts and then asked AI to review them and cross-reference them with the previous artefacts to identify any missing information or inconsistencies.
+
+I also used AI to create templates and guides to help me approach different sections of the project. This helped me structure my work and gave me a better understanding of what was expected. I also used it review my level of grammar and re word my sentences to get ideas across more clearly.
+
+When using AI, I reviewed the responses it gave me and only accepted suggestions that I felt were correct based on my own judgement. If I was unsure about a response, I went back to the relevant artefacts and learning materials to check whether it was correct. There were also times when I disagreed with the suggestions given by AI, so I rejected them and kept what I believed as correct.
 
 ## Andrii Badieiev
 
