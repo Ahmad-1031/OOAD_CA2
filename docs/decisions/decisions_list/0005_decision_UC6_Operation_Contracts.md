@@ -30,5 +30,25 @@ All seven decisions have been incorporated into the Operation Contracts. Cross-a
 
 Detailed decisions and team feedback: [Operation Contracts](../../../analysis/shared/06-Operation_Contracts.md)
 
-## Sign-off
+### Sign-off
 - Andrii, Ryan, Ahmad - agreed
+
+
+## Decision Amendent - UC6 Pause Scope
+
+### Decision
+
+Pauses originating outside UC6 are out of scope for the current design.
+
+Only a Change affecting the price or expected completion date can cause an OrderItem to be paused within UC6
+
+When customer agreement or rejection is recorded, the pause caused by that Change will be lifted. Otherwise, the existing pause state will remain unchanged.
+
+### Rationale
+- BR3 defines the conditions under which a Change requires work to be paused.
+- BR7 permits only one pending Change per OrderItem
+- Additional pause tracking mechanisms are not required within the selected use case.
+- The decision reduces design complexity and supports consistency between the Operation Contracts, CRC Cards, DCD and Object Interaction Diagram.
+
+### Sign-off
+- Ryan, Andrii, Ahmad - agreed

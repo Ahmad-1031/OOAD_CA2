@@ -17,7 +17,7 @@ This document defines the operation contracts for UC6 Record Change based on SSD
 ### OC-01: Find Order Item
 **Operation:** findOrderItem(orderNumber, itemNumber)
 
-**Cross-references:** UC6, SSD-01, FR4
+**Cross-references:** UC6, SSD-01, FR4, GH13
 
 **Preconditions:**
 - No domain-specific preconditions.
@@ -116,7 +116,7 @@ If a pending Change already exists for the OrderItem:
 - The proposed DesignVersion became the latest approved version of the OrderItem.
 - The OrderItem price was updated according to the recorded priceChange.
 - The OrderItem expectedCompletionDate was set to the recorded newCompletionDate.
-- If the Change had caused the OrderItem to be paused, the isPaused attribute was set to false, provided that no other blocking conditions remained.
+- If the Change had caused the OrderItem to be paused, the isPaused attribute was set to false.
 - Otherwise, the existing pause state of the OrderItem remained unchanged.
 - The existing production status of the OrderItem remained unchanged.
 - All previous DesignVersion instances and their approval records were preserved.
@@ -137,7 +137,7 @@ Customer agreement recorded through UC6 constitutes full approval of the propose
 
 **Operation:** recordCustomerRejection(changeNumber)
 
-**Cross-references:** UC6, SSD-01, FR4, FR7, NFR4, BR3, GH4. 
+**Cross-references:** UC6, SSD-01, FR4, FR7, NFR4, BR3, GH4, GH14. 
 
 **Preconditions:**
 - A StaffMember acting as Designer is identified.
@@ -152,7 +152,7 @@ Customer agreement recorded through UC6 constitutes full approval of the propose
 - The proposed DesignVersion was retained in the design history without approval.
 - The OrderItem price remained unchanged.
 - The OrderItem expectedCompletionDate remained unchanged.
-- If the Change had caused the OrderItem to be paused, the isPaused attribute was set to false, provided that no other blocking conditions remained.
+- If the Change had caused the OrderItem to be paused, the isPaused attribute was set to false.
 - Otherwise, the existing pause state of the OrderItem remained unchanged.
 - The existing production status of the OrderItem remained unchanged.
 - All existing associations between the Change and both DesignVersion instances were preserved.
@@ -218,7 +218,11 @@ Partial approval will remain supported by the wider system but will not be handl
 
 A Boolean attribute named isPaused will be added to the OrderItem class. When a change requiring a pause is recorded, isPaused will be set to true while the existing production status remains unchanged.
 
-After customer agreement or rejection, isPaused will be set to false only if the Change caused the OrderItem to be paused and no other blocking conditions remain. Otherwise, the existing pause state will remain unchanged.
+After customer agreement or rejection, isPaused will be set to false only if the Change caused the OrderItem to be paused. Otherwise, the existing pause state will remain unchanged.
+
+**Scope clarification:** Pauses originating outside UC6 are out of scope for the current design. BR7 permits only one pending Change per OrderItem, so no other change-related blocking conditions need to be considered when recording the customer response.
+
+**Additional retionale:** Restricting pause management to UC6 avoids introducing additional blocking condotions and pause tracking mechanisms that are outside the selected use case. This keeps the design consistent with BR3 and BR7 and simplifies the responsibilities of OrderItem and Change.
 
 **Rationale:** Separating the production status from the pause state preserves the current production stage without requiring an additional previousStatus attribute or status restoration logic. This reduces complexity and maintains consistency with the itemPaused response defined in SSD-01.
 
@@ -316,6 +320,8 @@ Only affected OrderItem will be paused, rather than entire Order.
 **Revised Decision:** Only changes affecting the price or expected completion date will cause the affected OrderItem to be paused.
 
 If neither is affected, the existing pause state of the OrderItem will remain unchanged.
+
+Following customer agreement or rejection, the pause caused by the Change will be lifted. Pauses originating outside UC6 are out of scope for the current design.
 
 **Final Status:** Agreed - awaiting implementation and consistency verification
 
