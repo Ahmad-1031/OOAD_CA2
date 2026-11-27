@@ -23,6 +23,7 @@ Source: [ssd-uc6-record-change.puml](../../ssd-uc6-record-change.puml)
 - The primary actor is the designer.
 - The first operation that changes anything is recordChange(...), after a findOrderItem(...) query.
 - The parameters crossing the boundary are listed on each event.
+- An order that does not exist is refused with ORDER_NOT_FOUND, and an item that is not in the order is refused with ORDER_ITEM_NOT_FOUND. This applies to both findOrderItem(...) and recordChange(...), and nothing is recorded.
 - A change can only be recorded against an item with an approved design version. Otherwise it is refused with NO_APPROVED_VERSION and nothing is recorded.
 - A change can only be recorded against an item with no pending change. Otherwise it is refused with PENDING_CHANGE_EXISTS and nothing is recorded.
 - recordChange returns a changeNumber, and the customer's agreement or rejection is recorded against that number. An order item can have more than one change, so the order and item numbers alone do not identify which change the customer is answering.
