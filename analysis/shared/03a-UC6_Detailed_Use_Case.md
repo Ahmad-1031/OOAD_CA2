@@ -9,7 +9,7 @@
 | Level | User goal |
 | Primary actor | Designer |
 | Stakeholders and interests | Customer (SH6), who wants to be told about any change to the price or date before more work is done. Designer (SH2), who needs each change linked to the version it replaces. Production worker, who should only work from the latest approved version. |
-| Preconditions | The order item exists and has at least one fully approved design version. |
+| Preconditions | A StaffMember acting as Designer is identified. |
 | Trigger | The customer asks for a change, or staff find that part of the design is not practical. |
 
 ### Main success scenario
