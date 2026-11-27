@@ -75,3 +75,21 @@ Feature: Record a change to an approved design
     When the designer records that the customer agreed to the change
     Then the response is refused because the change has already been answered
     And design version 2 is still the latest approved version
+
+  Scenario: GH13 - Finding an order item shows its current approved version
+    Given order 1050 item 1 has approved design version 2
+    And item 1 is quoted at €2,400
+    And the expected completion date for item 1 is 20 November
+    And the cutting stage for item 1 has started
+    When the designer looks up order 1050 item 1
+    Then design version 2 is shown as the latest approved version
+    And the cutting stage is shown as started
+    And item 1 is shown quoted at €2,400 with completion on 20 November
+
+  Scenario: GH14 - A rejection of an already answered change is refused
+    Given order 1050 item 1 has approved design version 2
+    And a change has created design version 3
+    And the customer has agreed to the change
+    When the designer records that the customer rejected the change
+    Then the response is refused because the change has already been answered
+    And design version 3 is still the latest approved version

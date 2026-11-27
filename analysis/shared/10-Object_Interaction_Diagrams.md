@@ -12,7 +12,7 @@ Source: [sd-uc6-record-change.puml](../../sd-uc6-record-change.puml)
 
 | Contract | Gherkin |
 | --- | --- |
-| OC-01 | GH9, GH10 |
+| OC-01 | GH13 |
 
 - The coordinator finds the order through OrderRepository and the item through Order.
 - OrderItem finds its latest approved version by asking each DesignVersion if it is fully approved.
@@ -28,7 +28,7 @@ Source: [sd-uc6-record-change.puml](../../sd-uc6-record-change.puml)
 - All four refusals are checked before anything is created.
 - ChangeRepository gives the next changeNumber, as it knows every Change (OQ-01).
 - StaffMember creates the Change (CR-01) and the Change creates the new DesignVersion (CR-02).
-- OrderItem asks the Change if it affects the price or date, and only pauses if it does (OQ-06).
+- OrderItem asks the Change if it affects the price or date, and only pauses if it does (OQ-06). pauseIfAffected returns whether the item is paused, which goes into changeRecorded.
 
 ### SD-03: recordCustomerAgreement
 
@@ -40,7 +40,7 @@ Source: [sd-uc6-record-change.puml](../../sd-uc6-record-change.puml)
 
 - The Change records the response and who recorded it (OQ-05).
 - StaffMember creates the Approval (CR-03) and the scope is set to Full (OQ-02).
-- OrderItem updates its own price and completion date, then lifts the pause.
+- OrderItem updates its own price and completion date, then resumeAfter lifts the pause if this change caused it. resumeAfter returns whether the item is still paused, which goes into changeAgreed.
 
 ### SD-04: recordCustomerRejection
 
@@ -48,10 +48,11 @@ Source: [sd-uc6-record-change.puml](../../sd-uc6-record-change.puml)
 
 | Contract | Gherkin |
 | --- | --- |
-| OC-04 | GH4, GH12 |
+| OC-04 | GH4, GH14 |
 
 - The Change records the rejection and who recorded it (OQ-05).
 - No Approval is created and the price and date are not changed.
+- resumeAfter lifts the pause if this change caused it and returns whether the item is still paused, which goes into changeRejected.
 
 ### DCD methods added while drawing
 
@@ -63,6 +64,8 @@ Source: [sd-uc6-record-change.puml](../../sd-uc6-record-change.puml)
 | Change | proposedVersion() : DesignVersion | Approve the version the Change created |
 | ChangeRepository | nextChangeNumber() : int | Give each Change a unique changeNumber (OQ-01) |
 | StaffMember | createChange gains a changeNumber parameter | Pass the number to the new Change |
+| OrderItem | pauseIfAffected and resumeAfter return boolean | Give itemPaused for changeRecorded, changeAgreed and changeRejected |
+| Refusal, RefusalCode | New class and enum | Return refusal outcomes instead of a result type |
 
 getOrder, getCustomer and nextChangeNumber are not yet in CRC-06.
 
@@ -75,6 +78,8 @@ getOrder, getCustomer and nextChangeNumber are not yet in CRC-06.
 - [x] Refusals happen before any object is created or changed
 - [x] Creators follow DR-06 (CR-01 to CR-03)
 
-### Open questions
+### Design notes
 
-- How resumeAfter knows whether this Change caused the pause and whether other blocking conditions remain. isPaused alone does not record the reason (see the open design note in 07).
+- **Pause and resume.** isPaused is only set by pauseIfAffected, and only when the Change affects price or date (OQ-06). BR7 allows one pending change per item, so when a response is recorded, that Change is the only one that can be holding the pause. resumeAfter asks the Change affectsPriceOrDate() and lifts the pause if it did. Pauses from outside UC6 are out of scope.
+- **itemPaused in responses.** ItemDetails matches itemDetails(...) in SSD-01 and does not hold the pause. pauseIfAffected and resumeAfter return the pause state, and the coordinator puts it in ChangeResult and ResponseResult.
+- **Refusals.** When a check fails, the coordinator returns a Refusal with its RefusalCode instead of the result type. The refusal happens before any object is created or changed, so nothing is recorded.

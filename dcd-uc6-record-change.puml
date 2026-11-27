@@ -40,8 +40,8 @@ class OrderItem {
   + hasPendingChange() : boolean
   + nextVersionNumber() : int
   + addVersion(version : DesignVersion)
-  + pauseIfAffected(change : Change)
-  + resumeAfter(change : Change)
+  + pauseIfAffected(change : Change) : boolean
+  + resumeAfter(change : Change) : boolean
   + updatePrice(priceChange : decimal)
   + updateCompletionDate(newDate : Date)
   + getDetails() : ItemDetails
@@ -114,6 +114,10 @@ class ResponseResult {
   - itemPaused : boolean
 }
 
+class Refusal {
+  - code : RefusalCode
+}
+
 enum ChangeStatus {
   PENDING
   ACCEPTED
@@ -125,12 +129,21 @@ enum ApprovalScope {
   PARTIAL
 }
 
+enum RefusalCode {
+  ORDER_NOT_FOUND
+  ORDER_ITEM_NOT_FOUND
+  NO_APPROVED_VERSION
+  PENDING_CHANGE_EXISTS
+  INVALID_CHANGE
+}
+
 RecordChangeCoordinator ..> OrderRepository
 RecordChangeCoordinator ..> ChangeRepository
 RecordChangeCoordinator --> StaffMember
 RecordChangeCoordinator ..> ItemDetails
 RecordChangeCoordinator ..> ChangeResult
 RecordChangeCoordinator ..> ResponseResult
+RecordChangeCoordinator ..> Refusal
 
 OrderRepository ..> Order
 ChangeRepository ..> Change

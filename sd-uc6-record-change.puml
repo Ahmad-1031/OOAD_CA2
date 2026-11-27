@@ -71,7 +71,7 @@ note right of NV : Change sets resultsIn
 
 C -> I : addVersion(newVersion)
 C -> CR : add(change)
-C -> I : pauseIfAffected(change)
+C -> I : itemPaused = pauseIfAffected(change)
 I -> CH : affectsPriceOrDate()
 note right of I : isPaused set to true only if\nprice or date is affected (OQ-06)
 
@@ -119,7 +119,9 @@ C -> NV : addApproval(approval)
 
 C -> I : updatePrice(change.priceChange)
 C -> I : updateCompletionDate(change.newCompletionDate)
-C -> I : resumeAfter(change)
+C -> I : itemPaused = resumeAfter(change)
+I -> CH : affectsPriceOrDate()
+note right of I : pause lifted only if this change\naffected price or date. BR7 allows one\npending change, so no other change\ncan be holding the pause
 C -> I : details = getDetails()
 C --> Designer : changeAgreed(latestApprovedVersion, price, expectedCompletionDate, itemPaused)
 @enduml
@@ -150,7 +152,9 @@ CH -> V : getOrderItem()
 C -> CH : reject(currentStaff)
 note right of CH : sets status REJECTED,\nresponseDate, responseRecordedBy.\nNo Approval is created
 
-C -> I : resumeAfter(change)
+C -> I : itemPaused = resumeAfter(change)
+I -> CH : affectsPriceOrDate()
+note right of I : pause lifted only if this change\naffected price or date. BR7 allows one\npending change, so no other change\ncan be holding the pause
 C -> I : details = getDetails()
 C --> Designer : changeRejected(latestApprovedVersion, price, expectedCompletionDate, itemPaused)
 @enduml
