@@ -43,6 +43,7 @@ contracts before being assigned to individual classes.
 |Identify the order using  its **orderNumber** | Doing | OrderRepository(proposed) |
 |Locate relevant order item within Order | Doing | Order | 
 |Determine the latest approved design version | Doing | OrderItem |
+| Determine whether the DesignVersion is fully approved | Doing | DesignVersion |
 |Know the DesignVersion associated with OrderItem | Knowing | OrderItem|
 |Know the current item status | Knowing | OrderItem|
 |Know the current item price | Knowing | OrderItem |
@@ -98,6 +99,8 @@ contracts before being assigned to individual classes.
 |Preserve the original price and expected completion date of OrderItem | Doing | OrderItem |
 | Register the newly created Change instance | Doing | ChangeRepository |
 |Return changeNumber, newVersionNumber and itemPaused | Doing | RecordChangeCoordinator |
+| Determine whether a fully approved DesignVersion exists | Doing | OrderItem |
+| Determine whether the DesignVersion is fully approved | Doing | DesignVersion |
 | Return NO_APPROVED_VERSION when no fully approved DesignVersion exists | Doing | RecordChangeCoordinator |
 | Determine whether the specified Order exists | Doing | OrderRepository |
 | Determine whether the specified OrderItem exists within the Order | Doing | Order |
@@ -134,7 +137,7 @@ contracts before being assigned to individual classes.
 | Associate a new Approval with the DesignVersion | Doing | DesignVersion |
 |Know the Customer who agreed to the Change | Knowing | Approval |
 |Associate approval with customer who agreed to change | Doing | Approval |
-|Associate approval with StaffMember that recorded agreement | Doing | StaffMember |
+|Associate approval with StaffMember recording it | Doing | Approval |
 |Establish proposed design version is latest approved version for OrderItem | Doing | OrderItem |
 |Know OrderItem affected by Change | Knowing | DesignVersion |
 | Identify the OrderItem affected by the Change | Doing | Change |
@@ -280,7 +283,6 @@ responsibilities to the selected classes.
 | Know drawings | | |
 | Know the associated OrderItem | | OrderItem |
 | Know associated Approval records | | Approval |
-| | Determine whether the DesignVersion is approved | Approval |
 | | Provide versionNumber | |
 | | Provide the OrderItem associated with the DesignVersion | OrderItem |
 | | Associate a new Approval with the DesignVersion | Approval |
@@ -357,7 +359,7 @@ responsibilities to the selected classes.
 | Know associated Changes for which the StaffMember recorded the customer response | | Change |
 | Know associated Approval records | | Approval |
 | | Create a new Change instance using the supplied changeNumber | Change |
-| | Record Approval instance | Approval |
+| | Create a new Approval instance | Approval |
 
 
 ## 4. Proposed Design Classes
@@ -445,7 +447,7 @@ has an appropriate owner.
 | 2 | Locate Order 1050 using orderNumber | OrderRepository |
 | 3 | Locate OrderItem 1 using itemNumber | Order |
 | 4 | Determine the latest approved DesignVersion | OrderItem |
-| 5 | Determine whether DesignVersion 2 is approved | DesignVersion |
+| 5 | Determine whether DesignVersion 2 is fully approved | DesignVersion |
 | 6 | Provide current OrderItem details | OrderItem |
 | 7 | Return current OrderItem details to Designer | RecordChangeCoordinator |
 | 8 | Receive recordChange system event from Designer | RecordChangeCoordinator |
@@ -508,7 +510,7 @@ has an appropriate owner.
 | 11 | Determine whether any other blocking conditions remain | OrderItem |
 | 12 | Lift the pause associated with the rejected Change if no other blocking conditions remain | OrderItem |
 | 13 | Determine the latest approved DesignVersion | OrderItem |
-| 14 | Determine whether the DesignVersion is approved | DesignVersion |
+| 14 | Determine whether the DesignVersion is fully approved | DesignVersion |
 | 15 | Provide current OrderItem details | OrderItem |
 | 16 | Return latestApprovedVersion, price, expectedCompletionDate and itemPaused | RecordChangeCoordinator |
 
