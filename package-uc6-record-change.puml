@@ -1,0 +1,40 @@
+@startuml PKG-uc6-record-change
+title Package View UC6 Record Change
+skinparam packageStyle rectangle
+hide members
+hide circle
+allowmixing
+
+package "application" as app {
+  class RecordChangeCoordinator
+  class ItemDetails
+  class ChangeResult
+  class ResponseResult
+  class Refusal
+  enum RefusalCode
+}
+
+package "domain" as dom {
+  class Order
+  class OrderItem
+  class DesignVersion
+  class Change
+  class Approval
+  class StaffMember
+  class Customer
+  enum ChangeStatus
+  enum ApprovalScope
+}
+
+package "persistence" as per {
+  class OrderRepository
+  class ChangeRepository
+}
+
+actor Designer
+Designer --> RecordChangeCoordinator : system operations
+app ..> dom
+app ..> per
+per ..> dom
+
+@enduml

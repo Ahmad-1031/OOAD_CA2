@@ -68,8 +68,6 @@ Source: [sd-uc6-record-change.puml](../../sd-uc6-record-change.puml)
 | Refusal, RefusalCode | New class and enum, held as an optional refusal in each result type | Return refusal outcomes through the existing return types |
 | Change | newCompletionDate becomes optional [0..1] | Left empty when the date is not moved, so affectsPriceOrDate() reads only the Change |
 
-getOrder, getCustomer and nextChangeNumber are not yet in CRC-06.
-
 ### Consistency check
 
 - [x] The first message of each diagram matches SSD-01
