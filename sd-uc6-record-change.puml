@@ -25,3 +25,132 @@ end
 C -> I : details = getDetails()
 C --> Designer : itemDetails(latestApprovedVersion, status, price, expectedCompletionDate)
 @enduml
+
+@startuml SD-02-record-change
+hide footbox
+title SD-02 recordChange
+
+actor Designer
+participant ":RecordChangeCoordinator" as C
+participant ":OrderRepository" as OR
+participant "order :Order" as O
+participant "item :OrderItem" as I
+participant ":ChangeRepository" as CR
+participant "currentStaff :StaffMember" as S
+
+Designer -> C : recordChange(orderNumber, itemNumber, description, dimensions, finish, drawings, priceChange, newCompletionDate)
+C -> OR : order = findByNumber(orderNumber)
+break order not found
+  C --> Designer : refused(ORDER_NOT_FOUND)
+end
+C -> O : item = findItem(itemNumber)
+break item not found in the order
+  C --> Designer : refused(ORDER_ITEM_NOT_FOUND)
+end
+C -> I : hasApprovedVersion()
+break item has no approved design version
+  C --> Designer : refused(NO_APPROVED_VERSION)
+end
+C -> I : hasPendingChange()
+break item already has a pending change
+  C --> Designer : refused(PENDING_CHANGE_EXISTS)
+end
+
+C -> I : basedOn = latestApprovedVersion()
+C -> CR : changeNumber = nextChangeNumber()
+C -> S : change = createChange(changeNumber, description, priceChange, newCompletionDate, basedOn)
+create participant "change :Change" as CH
+S -> CH : <<create>>
+note right of CH : sets changeNumber, changeDate,\nstatus PENDING, basedOn, recordedBy.\nresponseRecordedBy left unset
+
+C -> I : versionNumber = nextVersionNumber()
+C -> CH : newVersion = createDesignVersion(versionNumber, dimensions, finish, drawings)
+create participant "newVersion :DesignVersion" as NV
+CH -> NV : <<create>>
+note right of NV : Change sets resultsIn
+
+C -> I : addVersion(newVersion)
+C -> CR : add(change)
+C -> I : pauseIfAffected(change)
+I -> CH : affectsPriceOrDate()
+note right of I : isPaused set to true only if\nprice or date is affected (OQ-06)
+
+C --> Designer : changeRecorded(changeNumber, newVersionNumber, itemPaused)
+@enduml
+
+@startuml SD-03-record-customer-agreement
+hide footbox
+title SD-03 recordCustomerAgreement
+
+actor Designer
+participant ":RecordChangeCoordinator" as C
+participant ":ChangeRepository" as CR
+participant "change :Change" as CH
+participant "basedOn :DesignVersion" as V
+participant "item :OrderItem" as I
+participant "order :Order" as O
+participant "currentStaff :StaffMember" as S
+participant "newVersion :DesignVersion" as NV
+
+Designer -> C : recordCustomerAgreement(changeNumber)
+C -> CR : change = findByNumber(changeNumber)
+break change unknown
+  C --> Designer : refused(INVALID_CHANGE)
+end
+C -> CH : hasResponse()
+break change already answered
+  C --> Designer : refused(INVALID_CHANGE)
+end
+
+C -> CH : item = affectedItem()
+CH -> V : getOrderItem()
+C -> CH : accept(currentStaff)
+note right of CH : sets status ACCEPTED,\nresponseDate, responseRecordedBy
+
+C -> CH : newVersion = proposedVersion()
+C -> I : order = getOrder()
+C -> O : customer = getCustomer()
+C -> S : approval = createApproval(newVersion, customer)
+create participant "approval :Approval" as A
+S -> A : <<create>>
+note right of A : sets approvalDate, links to\nCustomer and recording StaffMember
+C -> A : setFullScope()
+C -> NV : addApproval(approval)
+
+C -> I : updatePrice(change.priceChange)
+C -> I : updateCompletionDate(change.newCompletionDate)
+C -> I : resumeAfter(change)
+C -> I : details = getDetails()
+C --> Designer : changeAgreed(latestApprovedVersion, price, expectedCompletionDate, itemPaused)
+@enduml
+
+@startuml SD-04-record-customer-rejection
+hide footbox
+title SD-04 recordCustomerRejection
+
+actor Designer
+participant ":RecordChangeCoordinator" as C
+participant ":ChangeRepository" as CR
+participant "change :Change" as CH
+participant "basedOn :DesignVersion" as V
+participant "item :OrderItem" as I
+
+Designer -> C : recordCustomerRejection(changeNumber)
+C -> CR : change = findByNumber(changeNumber)
+break change unknown
+  C --> Designer : refused(INVALID_CHANGE)
+end
+C -> CH : hasResponse()
+break change already answered
+  C --> Designer : refused(INVALID_CHANGE)
+end
+
+C -> CH : item = affectedItem()
+CH -> V : getOrderItem()
+C -> CH : reject(currentStaff)
+note right of CH : sets status REJECTED,\nresponseDate, responseRecordedBy.\nNo Approval is created
+
+C -> I : resumeAfter(change)
+C -> I : details = getDetails()
+C --> Designer : changeRejected(latestApprovedVersion, price, expectedCompletionDate, itemPaused)
+@enduml

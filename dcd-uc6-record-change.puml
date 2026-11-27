@@ -87,7 +87,7 @@ class Approval {
 class StaffMember {
   - name : String
   - role : String
-  + createChange(description : String, priceChange : decimal, newCompletionDate : Date, basedOn : DesignVersion) : Change
+  + createChange(changeNumber : int, description : String, priceChange : decimal, newCompletionDate : Date, basedOn : DesignVersion) : Change
   + createApproval(version : DesignVersion, customer : Customer) : Approval
 }
 
