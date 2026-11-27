@@ -38,3 +38,19 @@ Identified potential inconsistencies across the UC6 analysis and design artefact
 
 **What I did:** 
 Documented outstanding consistency checks, updated the traceability mappings.
+
+## AI-[03]
+
+**Tool and model:** [Claude]
+**Member:** [Ryan Lock]
+**Date:** 2026-11-26
+
+
+**Prompt:**
+> [Consider the CRC cards and GRASP, explain concepts. In general, how may I use information in CRC cards to build a DCD]
+
+**Response:**
+> [Explained knowing and doing responsibilities, collaborators, and the GRASP patterns used in 07 and 08 (Information Expert, Creator, Controller, Pure Fabrication), and how the CRC cards feed into the design class diagram]
+
+**What I did:**
+[Used the explanation to help guide my review Ahmad's CRC cards against the updated domain model and SSD, wrote my own feedback notes on where they no longer matched]
