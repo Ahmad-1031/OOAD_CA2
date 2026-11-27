@@ -9,9 +9,57 @@ Each member records the work assigned to them and the work they did, with commit
 | Artefact | File |
 | --- | --- |
 |  |  |
+| Scenario suitability assessment | [01-Suitability_Matrix.md](../../analysis/shared/01-Suitability_Matrix.md) |
+| Revised analysis baseline | [03-Revised_analysis_baseline.md](../../analysis/shared/03-Revised_analysis_baseline.md) |
+| CRC Cards and Scenario Role-Play (CRC-06) | [07-CRC_Cards.md](../../analysis/shared/07-CRC_Cards.md) |
+| GRASP Design Rationale (DR-06) | [08-Grasp.md](../../analysis/shared/08-Grasp.md) |
 
 ### Work by stage
 
+#### Scenario selection (01)
+
+- Created the initial project file structure and shared artefact templates
+- Added my CA1 scenario, Kerry Community Digital Archive, including its scenario profile and supporting domain model
+- Assessed the suitability of all three proposed scenarios
+- Participated in the selection of Scenario 17, Dingle Bay Furniture Workshop
+
+Commits: 223a599, 550d54b, 731b346, 20a6b5f, 22159ba, 6419a5b
+
+#### Reconciliation and revised analysis baseline (03)
+
+- Prepared and maintained the revised analysis baseline for the selected scenario
+- Consolidated the functional requirements, non-functional requirements, business rules and user stories
+- Contributed to defining the agreed scope of UC6 Record Change
+- Updated the decision log and documented agreed team decisions
+- Updated the baseline to address identified consistency checks and maintain alignment with the operation contracts
+
+Commits: 6419a5b, 986536d, 14d8187, eb9ae49, c08add4
+
+#### Reviews
+
+- Reviewed the operation contracts OC-01 to OC-04
+- Reviewed the open design questions OQ-01 to OQ-07
+
+
+Commits: 0df1949, c0502b0
+
+
+
+#### Design (CRC Cards and GRASP)
+
+- Created and maintained CRC-06 for UC6 Record Change
+- Identified and assigned knowing and doing responsibilities to domain and software design classes
+- Identified class collaborators and documented alternative responsibility assignments
+- Prepared scenario role-plays for successful change recording and customer rejection
+- Created and maintained DR-06, justifying responsibility assignments using GRASP principles
+- Applied Information Expert, Creator, Controller, Low Coupling, High Cohesion, Pure Fabrication, Indirection and Protected Variations
+- Incorporated peer feedback and updated CRC responsibilities and GRASP decisions to align with the operation contracts, DCD and object interaction diagrams
+- Refined responsibility assignments for globally unique changeNumber allocation, Change registration, conditional pause and resume behaviour, staff accountability and operation outcomes
+- Extended the Information Expert decisions with IE-09 to IE-14
+- Updated the Creator, Controller, Low Coupling, High Cohesion, Pure Fabrication, Indirection and Protected Variations rationale to reflect the revised design
+- Performed consistency checks across the CRC cards, GRASP decisions, DCD and object interaction diagrams
+
+Commits: 2e5c1aa, 3648beb, c08add4, cc357f2, 1bfaa8e, adcf8c6
 ## Andrii Badieiev
 
 ### Work assigned to
