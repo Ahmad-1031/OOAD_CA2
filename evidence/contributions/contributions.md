@@ -18,9 +18,42 @@ Each member records the work assigned to them and the work they did, with commit
 
 | Artefact | File |
 | --- | --- |
-|  |  |
+| Scenario suitability assessment | [01-Suitability_Matrix.md](../../analysis/shared/01-Suitability_Matrix.md) |
+| Reconciliation record | [02-Reconiliation-recored.md](../../analysis/shared/02-Reconiliation-recored.md) |
+| Prioritised implementation catalogue | [04-Prioritised_Implementation_Catalogue.md](../../analysis/shared/04-Prioritised_Implementation_Catalogue.md) |
+| Operation Contracts OC-01 to OC-04 | [06-Operation_Contracts.md](../../analysis/shared/06-Operation_Contracts.md) |
+| UC6 design decisions OQ-01 to OQ-07 | [0005_decision_UC6_Operation_Contracts.md](../../docs/decisions/decisions_list/0005_decision_UC6_Operation_Contracts.md) |
+| Traceability Matrix | [09-Traceability_Matrix.md](../../analysis/shared/09-Traceability_Matrix.md) |
 
 ### Work by stage
+
+**Scenario selection (01)**
+- Added my CA1 scenario, Kerry Kitchen Collective, and its supporting analysis artefacts
+- Assessed the suitability of the other proposed scenarios
+- Participated in the selection of Scenario 17, Dingle Bay Furniture Workshop
+
+**Reconciliation and prioritisation (02, 04)**
+- Prepared the reconciliation record and proposed changes to the selected scenario
+- Contributed to the reconciliation of the analysis baseline
+- Prepared the prioritised implementation catalogue
+- Defined the proposed implementation scope and vertical slices VS1 to VS3 for UC6 Record Change
+- Documented the reconciliation and prioritisation decisions in decision records 0002 and 0004
+
+**Analysis (Operation Contracts)**
+- Prepared and maintained the four operation contracts OC-01 to OC-04
+- Defined preconditions, postconditions and refusal outcomes for the selected system operations
+- Identified and documented 7 open design questions
+- Incorporated team feedback and agreed design decisions into the operation contracts
+- Updated the contracts to reflect BR7, conditional pause and resume behaviour, staff accountability and optional completion date handling.
+
+Commits: 8eb2e15, 750faa0, edf0c22, 7d081b8, e22a8b6, c022f22, ae73c2e
+
+**Design consistency and traceability**
+- Created and maintained UC6 Traceability Matrix
+- Mapped requirements, business rules, backlog items, Gherkin scenarios, SSD, operation contracts, CRC cards and GRASP decisions
+- Documented consistency checks TC-01 to TC-11 and tracked their resolution as the design evolved.
+
+Commits: 8b0834b, 82a45bf, cca5f86, e2ea8b6, 59485dd, c022f22, ae73c2e
 
 ## Ryan Lock
 
