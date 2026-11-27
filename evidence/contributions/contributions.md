@@ -112,10 +112,12 @@ Commits: 8b0834b, 82a45bf, cca5f86, e2ea8b6, 59485dd, c022f22, ae73c2e
 | SSD-01 UC6 Record Change | [ssd-uc6-record-change.puml](../../ssd-uc6-record-change.puml) |
 | SSD write-up | [05-System_Sequence_Diagrams.md](../../analysis/shared/05-System_Sequence_Diagrams.md) |
 | UC6 domain model | [uc6-domain-model.puml](../../uc6-domain-model.puml) |
+| UC6 detailed use case | [03a-UC6_Detailed_Use_Case.md](../../analysis/shared/03a-UC6_Detailed_Use_Case.md) |
 | Gherkin scenarios GH3 to GH14 | [record-change.feature](../../features/record-change.feature) |
 | Design Class Diagram | [dcd-uc6-record-change.puml](../../dcd-uc6-record-change.puml) |
 | Object interaction diagrams SD-01 to SD-04 | [sd-uc6-record-change.puml](../../sd-uc6-record-change.puml) |
 | Object interaction write-up | [10-Object_Interaction_Diagrams.md](../../analysis/shared/10-Object_Interaction_Diagrams.md) |
+| Package view and shared interfaces | [package-uc6-record-change.puml](../../package-uc6-record-change.puml), [11-Design_Structure_and_Interfaces.md](../../analysis/shared/11-Design_Structure_and_Interfaces.md) |
 
 ### Work by stage
 
@@ -126,14 +128,15 @@ Commits: 8b0834b, 82a45bf, cca5f86, e2ea8b6, 59485dd, c022f22, ae73c2e
 
 Commits: 6daf560, bd49eb8, 2ef5891, 4ed7f02, 6efff69, 9650ab9, 0978ef8, 9dfaffd
 
-#### Analysis (SSD, domain model, Gherkin)
+#### Analysis (SSD, domain model, Gherkin, detailed use case)
 
 - Created and maintained SSD-01 and its write-up (05)
 - Created and maintained the UC6 domain model
 - Wrote the Gherkin scenarios GH3 to GH12
 - Updated the SSD, domain model and Gherkin for OQ-01 to OQ-07 (decision 0005)
+- Wrote the UC6 detailed use case (03a), updated from CA1 for the agreed decisions
 
-Commits: 23b5351, 7b5ecef, 631aa82, e01c7bb, 89250e8, 8cffb47, 945bce7, b0df68b, e9e7c0c, 792ac16, 2756f14
+Commits: 23b5351, 7b5ecef, 631aa82, e01c7bb, 89250e8, 8cffb47, 945bce7, b0df68b, e9e7c0c, 792ac16, 2756f14, 1f7e820
 
 #### Reviews
 
@@ -142,10 +145,22 @@ Commits: 23b5351, 7b5ecef, 631aa82, e01c7bb, 89250e8, 8cffb47, 945bce7, b0df68b,
 
 Commits: a4d234e, 054f256
 
-#### Design (DCD, object interaction)
+#### Design (DCD, object interaction, design structure)
 
 - Created and maintained the DCD in line with the CRC cards and GRASP decisions
 - Created the object interaction diagrams SD-01 to SD-04 and their write-up (10)
 - Updated the DCD, sequence diagrams and Gherkin after design review, adding GH13 and GH14
+- Made Refusal part of the result types and newCompletionDate optional after design review
+- Created the package view and the design structure and shared interfaces catalogue (11)
 
-Commits: 4aaefb1, 6b013e3, 436671d, 3dfcded, 53bb1d6, 1271d1e
+Commits: 4aaefb1, 6b013e3, 436671d, 3dfcded, 53bb1d6, 1271d1e, 34518c3, 7db4e60
+
+#### Project evidence
+
+- Created the README with the Product Goal and artefact index
+- Created the contributions file, the Definition of Done and the individual AI declarations file
+- Drafted the group retrospective (docs/reflection)
+- Added my AI declaration and AI log entry, and removed unused model folders
+
+Commits: 34518c3, e64f85b, 62db576, 5af4569, 1f7e820, 7db4e60, 87a6883
+
