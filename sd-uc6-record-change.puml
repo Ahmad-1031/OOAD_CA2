@@ -121,7 +121,7 @@ C -> I : updatePrice(change.priceChange)
 C -> I : updateCompletionDate(change.newCompletionDate)
 C -> I : itemPaused = resumeAfter(change)
 I -> CH : affectsPriceOrDate()
-note right of I : pause lifted only if this change\naffected price or date. BR7 allows one\npending change, so no other change\ncan be holding the pause
+note right of I : pause lifted only if this change\naffected price or date. Change reads its own\npriceChange and newCompletionDate, so the\nanswer does not depend on the updated item
 C -> I : details = getDetails()
 C --> Designer : changeAgreed(latestApprovedVersion, price, expectedCompletionDate, itemPaused)
 @enduml

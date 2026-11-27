@@ -81,7 +81,9 @@ Score each criterion from 1 to 5, using the anchors below. Agree these anchors a
 | Sliceability | 4 | Four slices (submit contribution, allocate request, process request, release stalled allocations), each with a trigger and an outcome. No fallbacks are stated | 2 | Six functional areas are listed (recipe management, ingredients, planning, batch recording, quality control, traceability), but none is described as a slice with an input and an outcome |
 | Testability | 3 | Outcomes are observable (rejected allocation, updated request history). Fixtures and test doubles are mentioned but not named | 3 | Four behaviours with observable outcomes (recording a batch, recording a substitution, release blocked before quality checks, tracing affected orders). No test doubles are named |
 | Comparability | 2 | The profile says the scenario has actors, use cases and candidate classes, but gives no counts for them. Some could be taken from the domain model (13 classes), the matrix asks for counts using shared definitions, none have been provided | 2 | The profile says there is enough material to compare design decisions, but gives no counts. Some could be taken from the domain model (nine classes), the matrix asks for counts using shared definitions, none have been provided |
-| **Total (out of 30)** | 19 | | 16 | |## Final averages
+| **Total (out of 30)** | 19 | | 16 | |
+
+## Final averages
 
 | Scenario | Final average |
 |---|:---:|

@@ -65,7 +65,8 @@ Source: [sd-uc6-record-change.puml](../../sd-uc6-record-change.puml)
 | ChangeRepository | nextChangeNumber() : int | Give each Change a unique changeNumber (OQ-01) |
 | StaffMember | createChange gains a changeNumber parameter | Pass the number to the new Change |
 | OrderItem | pauseIfAffected and resumeAfter return boolean | Give itemPaused for changeRecorded, changeAgreed and changeRejected |
-| Refusal, RefusalCode | New class and enum | Return refusal outcomes instead of a result type |
+| Refusal, RefusalCode | New class and enum, held as an optional refusal in each result type | Return refusal outcomes through the existing return types |
+| Change | newCompletionDate becomes optional [0..1] | Left empty when the date is not moved, so affectsPriceOrDate() reads only the Change |
 
 getOrder, getCustomer and nextChangeNumber are not yet in CRC-06.
 
@@ -82,4 +83,5 @@ getOrder, getCustomer and nextChangeNumber are not yet in CRC-06.
 
 - **Pause and resume.** isPaused is only set by pauseIfAffected, and only when the Change affects price or date (OQ-06). BR7 allows one pending change per item, so when a response is recorded, that Change is the only one that can be holding the pause. resumeAfter asks the Change affectsPriceOrDate() and lifts the pause if it did. Pauses from outside UC6 are out of scope.
 - **itemPaused in responses.** ItemDetails matches itemDetails(...) in SSD-01 and does not hold the pause. pauseIfAffected and resumeAfter return the pause state, and the coordinator puts it in ChangeResult and ResponseResult.
-- **Refusals.** When a check fails, the coordinator returns a Refusal with its RefusalCode instead of the result type. The refusal happens before any object is created or changed, so nothing is recorded.
+- **Refusals.** ItemDetails, ChangeResult and ResponseResult each hold an optional Refusal. On success it is empty. When a check fails, the coordinator returns the result with the Refusal and its RefusalCode set, and nothing is created or changed.
+- **Price or date impact.** affectsPriceOrDate() reads only the Change's own priceChange and newCompletionDate, which is left empty if the date is not moved. The answer does not change after OrderItem's price and date are updated in SD-03.

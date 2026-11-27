@@ -64,7 +64,7 @@ class Change {
   - changeDate : Date
   - description : String
   - priceChange : decimal
-  - newCompletionDate : Date
+  - newCompletionDate : Date [0..1]
   - status : ChangeStatus
   - responseDate : Date
   + createDesignVersion(versionNumber : int, dimensions : String, finish : String, drawings : String) : DesignVersion
@@ -99,12 +99,14 @@ class ItemDetails {
   - status : String
   - price : decimal
   - expectedCompletionDate : Date
+  - refusal : Refusal [0..1]
 }
 
 class ChangeResult {
   - changeNumber : int
   - newVersionNumber : int
   - itemPaused : boolean
+  - refusal : Refusal [0..1]
 }
 
 class ResponseResult {
@@ -112,6 +114,7 @@ class ResponseResult {
   - price : decimal
   - expectedCompletionDate : Date
   - itemPaused : boolean
+  - refusal : Refusal [0..1]
 }
 
 class Refusal {
@@ -143,7 +146,6 @@ RecordChangeCoordinator --> StaffMember
 RecordChangeCoordinator ..> ItemDetails
 RecordChangeCoordinator ..> ChangeResult
 RecordChangeCoordinator ..> ResponseResult
-RecordChangeCoordinator ..> Refusal
 
 OrderRepository ..> Order
 ChangeRepository ..> Change
