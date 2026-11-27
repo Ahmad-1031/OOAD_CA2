@@ -19,29 +19,49 @@ Give the designers and customers of Dingle Bay Furniture Workshop one reliable r
 
 Full contributions: [evidence/contributions/contributions.md](evidence/contributions/contributions.md)
 
-## Design artefacts
+## Group Design Dossier
 
-| Stage | Artefact |
+The group design dossier is organised into ten numbered artefacts, located in the `analysis/shared/` directory.
+
+Artefacts 01 to 10 collectively form the repository-based technical design dossier and should be read in numerical order. They document the progression of the project from scenario selection and reconciliation through behavioural analysis, responsibility-driven design, traceability and detailed object interactions.
+
+
+
+| No. | Stage | Artefact |
+| --- | --- | --- |
+| 01 | Scenario selection | [Suitability matrix](analysis/shared/01-Suitability_Matrix.md) |
+| 02 | Reconciliation | [Reconciliation record](analysis/shared/02-Reconiliation-recored.md) |
+| 03 | Baseline | [Revised analysis baseline](analysis/shared/03-Revised_analysis_baseline.md) |
+| 04 | Scope and prioritisation | [Prioritised implementation catalogue](analysis/shared/04-Prioritised_Implementation_Catalogue.md) |
+| 05 | System sequence diagrams | [System sequence diagrams](analysis/shared/05-System_Sequence_Diagrams.md) |
+| 06 | Operation contracts | [Operation contracts](analysis/shared/06-Operation_Contracts.md) |
+| 07 | Responsibility assignment | [CRC cards and scenario role-play](analysis/shared/07-CRC_Cards.md) |
+| 08 | Design rationale | [GRASP design rationale](analysis/shared/08-Grasp.md) |
+| 09 | Traceability | [Traceability matrix](analysis/shared/09-Traceability_Matrix.md) |
+| 10 | Object interactions | [Object interaction diagrams](analysis/shared/10-Object_Interaction_Diagrams.md) |
+
+<br>
+
+## Where to find things
+
+### Supporting design artefacts
+
+| Artefact | File |
 | --- | --- |
-| Scenario selection | [01 Suitability matrix](analysis/shared/01-Suitability_Matrix.md) |
-| Reconciliation | [02 Reconciliation record](analysis/shared/02-Reconiliation-recored.md) |
-| Baseline | [03 Revised analysis baseline](analysis/shared/03-Revised_analysis_baseline.md) |
-| Scope | [04 Prioritised implementation catalogue](analysis/shared/04-Prioritised_Implementation_Catalogue.md) |
-| Domain model | [uc6-domain-model.puml](uc6-domain-model.puml) |
-| Gherkin | [record-change.feature](features/record-change.feature) |
-| System sequence diagram | [05 SSD](analysis/shared/05-System_Sequence_Diagrams.md), [ssd-uc6-record-change.puml](ssd-uc6-record-change.puml) |
-| Operation contracts | [06 Operation contracts](analysis/shared/06-Operation_Contracts.md) |
-| CRC cards | [07 CRC cards](analysis/shared/07-CRC_Cards.md) |
-| GRASP | [08 GRASP](analysis/shared/08-Grasp.md) |
-| Traceability | [09 Traceability matrix](analysis/shared/09-Traceability_Matrix.md) |
+| UC6 domain model | [uc6-domain-model.puml](uc6-domain-model.puml) |
+| Gherkin scenarios | [record-change.feature](features/record-change.feature) |
+| System sequence diagram | [ssd-uc6-record-change.puml](ssd-uc6-record-change.puml) |
 | Design class diagram | [dcd-uc6-record-change.puml](dcd-uc6-record-change.puml) |
-| Object interaction | [10 Object interaction diagrams](analysis/shared/10-Object_Interaction_Diagrams.md), [sd-uc6-record-change.puml](sd-uc6-record-change.puml) |
+| Object interaction diagrams | [sd-uc6-record-change.puml](sd-uc6-record-change.puml) |
 
-## Decisions and evidence
+### Project evidence
 
-- [Decision log](docs/decisions/decisions_backlog.md)
-- [AI usage log](evidence/ai/Ai_usage_log.md)
-- [Contributions](evidence/contributions/contributions.md)
+| Artefact | Description |
+| --- | --- |
+| [Individual contributions](evidence/contributions/contributions.md) | Individual responsibilities, completed work and supporting commit references. |
+| [Decision log](docs/decisions/decisions_backlog.md) | Recorded group decisions, design rationale and agreed changes. |
+| [AI usage log](evidence/ai/Ai_usage_log.md) | Recorded use of AI throughout the project. |
+
 
 ## Viewing diagrams
 
