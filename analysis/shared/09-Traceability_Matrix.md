@@ -10,6 +10,7 @@ It supports consistency verification across the product backlog, Gherkin scenari
 | Artefact | Reference |
 |---|---|
 | Revised Analysis Baseline | [Baseline](./03-Revised_analysis_baseline.md) |
+| Detailed Use Case | [UC6 Record Change](./03a-UC6_Detailed_Use_Case.md) |
 | Prioritised Implementation Catalogue | [Implementation Catalogue](./04-Prioritised_Implementation_Catalogue.md) |
 | Gherkin Scenarios | [Record Change](../../features/record-change.feature) |
 | Domain Model | [UC6 Domain Model](../../uc6-domain-model.puml) |
@@ -24,7 +25,7 @@ It supports consistency verification across the product backlog, Gherkin scenari
 ## 2. Use Case Traceability
 | Use Case | Backlog | Requirements / Rules | Gherkin | SSD | Operation Contracts | CRC / GRASP | Object Interaction | Design Classes |
 |---|---|---|---|---|---|---|---|---|
-| UC6 - Record Change | US2, VS1-VS3 | FR4, FR5, FR7, NFR4, BR3, BR6, BR7 | GH3, GH4, GH6-GH14 (all four operations and all five refusal types covered; partial operation-level refusal coverage) | SSD-01 | OC-01 - OC-04 | CRC-06, DR-06 (awaiting peer review) | [SD-01 - SD-04](./10-Object_Interaction_Diagrams.md) - verification in progress | [DCD](../../dcd-uc6-record-change.puml) - verification in progress |
+| [UC6-Record Change](./03a-UC6_Detailed_Use_Case.md) | US2, VS1-VS3 | FR4, FR5, FR7, NFR4, BR3, BR6, BR7 | GH3, GH4, GH6-GH14 (all four operations and all five refusal types covered; partial operation-level refusal coverage) | SSD-01 | OC-01 - OC-04 | CRC-06, DR-06 (awaiting peer review) | [SD-01 - SD-04](./10-Object_Interaction_Diagrams.md) - verification in progress | [DCD](../../dcd-uc6-record-change.puml) - verification in progress |
 
 ## 3. Operation-Level Traceability
 | Contract | SSD Operation | Backlog | Requirements / Rules | Gherkin Coverage | Principal CRC Classes | GRASP Decisions | DCD / Interaction |
@@ -45,13 +46,14 @@ CRC and GRASP mapping reflect the current design proposals and remain subject to
 | TC-02 | Baseline | Correct the use case references for FR5 and NFR4 | Resolved |
 | TC-03 | Gherkin , OC-03 | Customer agreement scenario covering full approval and updated price/date added in GH6 | Resolved |
 | TC-04 | Gherkin, BR3, OQ-06 | Change without price or completion date impact covered in GH7 | Resolved |
-| TC-05 | Gherkin, SSD-01, OC-01 - OC-04, SD-01 - SD-04 | GH13 and GH14 provide direct coverage of OC-01 and the OC-04 refusal. All four operations and all five refusal types are now. covered. Explicit findOredrItem refusal scenarios, unknown changeNumber scenarios and comprehensive domain state preservation checks remain outstanding. Gherkin references in the interaction documentation have been aligned. | Partially resolved |
+| TC-05 | Gherkin, SSD-01, OC-01 - OC-04, SD-01 - SD-04 | GH13 and GH14 provide direct coverage of OC-01 and the OC-04 refusal. All four operations and all five refusal types are covered. Explicit findOrderItem refusal scenarios, unknown changeNumber scenarios and comprehensive domain state preservation checks remain outstanding. Gherkin references in the interaction documentation have been aligned. Gherkin mapping in the Detailed Use Case require alignment with actual scenario coverage. | Partially resolved |
 | TC-06 | CRC-06, OQ-04, OQ-07 | Assign responsibilities for missing order, missing item and existing pending change refusals. | Resolved |
 | TC-07 | CRC-06, NFR4, OQ-05 | Include the responseRecordedBy association for customer agreement and rejection | Resolved |
 | TC-08 | CRC-06, BR3, OQ-06 | Align pause resume responsibilities with the agreed conditional pause rules. | Resolved |
 | TC-09 | CRC-06, DR-06 | Align controller responsibilities and scenario role-play with CT-01 | Resolved |
 | TC-10 | CRC-06, Gherkin | Align the proposed completion date used in the scenario examples (29 November versus 27 November). | Resolved |
-| TC-11 | DCD, CRC-06, DR-06, SD-01 - SD-04, OC-02, OC-03, OC-04 | itemPaused handling, refusal result conventions and original price/date impact identification have been aligned at design level. Previously missing CRC responsibilities have been assigned and corresponding GRASP decisions IE-09 to IE-14 have been documented. Conditional completion date updates in CRC-06 and SD-03, UC6-only pause scope confirmation and CRC alignment, and final cross-artefact consistency verification remain outstanding. | In Progress |
+| TC-11 | Detailed UC6, DCD, CRC-06, DR-06, SD-01 - SD-04, OC-02, OC-03, OC-04 | itemPaused handling, refusal result conventions and original price/date impact identification have been aligned at design level. Previously missing CRC responsibilities have been assigned and corresponding GRASP decisions IE-09 to IE-14 have been documented. Conditional completion date updates in  the Detailed Use Case, CRC-06 and SD-03, UC6-only pause scope confirmation and CRC alignment, and final cross-artefact consistency verification remain outstanding. | In Progress |
+| TC-12 | Detailed UC6, SSD-01, OC-01 - OC-04 | Clarify use case preconditions to accommodate refusal scenarios and verify alignment of the main success scenario, extensions and guarantees with the Operation Contracts. | Open |
 
 The outstanding checks identify traceability and consistency gaps in the current artefacts. They do not constitute completed peer review or approval.
 

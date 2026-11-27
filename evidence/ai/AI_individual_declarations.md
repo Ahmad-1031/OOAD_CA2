@@ -8,7 +8,11 @@ Each member states how they used AI, which work it affected, and how the content
 
 ## Andrii Badieiev
 
-\[To be completed]
+I used AI to support my understanding of object-oriented analysis and design concept, including operation contracts, traceability and consistency between analysis and design artefacts.
+
+I used AI to assist with drafting and refining operation contracts, traceability mappings, alternative design decisions and supporting project documentation. I also used it to identify potential inconsistencies across analysis and design artefacts.
+
+I independently evaluated AI suggestions, applied my own judgement and decided which recommendations to accept, modify or reject. I made decisions regarding my assigned artefacts and took responsibility for their content. Shared design decisions were discussed and agreed upon by the team.
 
 ## Ryan Lock
 
