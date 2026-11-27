@@ -218,7 +218,7 @@ Partial approval will remain supported by the wider system but will not be handl
 
 A Boolean attribute named isPaused will be added to the OrderItem class. When a change requiring a pause is recorded, isPaused will be set to true while the existing production status remains unchanged.
 
-After customer agreement or rejection, isPaused will be set to false, provided that no other blocking conditions remain.
+After customer agreement or rejection, isPaused will be set to false only if the Change caused the OrderItem to be paused and no other blocking conditions remain. Otherwise, the existing pause state will remain unchanged.
 
 **Rationale:** Separating the production status from the pause state preserves the current production stage without requiring an additional previousStatus attribute or status restoration logic. This reduces complexity and maintains consistency with the itemPaused response defined in SSD-01.
 
